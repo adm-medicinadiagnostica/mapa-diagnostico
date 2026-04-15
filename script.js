@@ -9,7 +9,8 @@ function showPage(pageId) {
     const activeBtn = document.getElementById('btn-' + pageId);
     if (activeBtn) activeBtn.classList.add('active-btn');
 
-    document.querySelector('.main-content').scrollTo(0, 0);
+    // Scroll suave para o topo do conteúdo principal
+    document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function openModal(title, text) {
@@ -23,5 +24,8 @@ function closeModal() {
 }
 
 window.onclick = function(event) {
-    if (event.target == document.getElementById('modal')) closeModal();
+    const modal = document.getElementById('modal');
+    if (event.target == modal) {
+        closeModal();
+    }
 }
