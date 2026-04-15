@@ -1,169 +1,384 @@
-/* Paleta de Cores Vera Cruz: #005c69 (Escuro) e #00c2cb (Claro) */
+/* Paleta de Cores Refinada Vera Cruz: #005c69 (Petróleo) e #00c2cb (Turquesa) */
+
+:root {
+    --primary: #005c69;
+    --primary-light: #007a8b;
+    --secondary: #00c2cb;
+    --secondary-light: #66dbe1;
+    --background: #f0f4f7;
+    --text-main: #2c3e50;
+    --text-light: #7f8c8d;
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
-    background-color: #f8fafb;
-    color: #333;
+    background-color: var(--background);
+    color: var(--text-main);
+    font-weight: 400;
 }
 
-/* Menu Superior */
+/* Menu Superior Moderno */
 nav {
-    background-color: #005c69;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: white;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    font-size: 1.3rem;
+    color: var(--primary);
+    font-weight: 300;
+}
+
+.brand strong { font-weight: 700; }
 
 nav button {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.4);
+    background: var(--primary);
+    border: none;
     color: white;
-    padding: 8px 25px;
+    padding: 10px 20px;
     cursor: pointer;
-    border-radius: 25px;
-    font-weight: 500;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 nav button:hover {
-    background: white;
-    color: #005c69;
+    background: var(--primary-light);
+    transform: translateY(-2px);
 }
 
-/* Páginas */
+/* Estrutura de Páginas e Animação */
 .page {
     display: none;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
-    animation: fadeIn 0.4s ease-in-out;
+    padding: 60px 20px;
+    animation: slideIn 0.5s ease;
 }
 
 .active { display: block; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* BOTÕES CENTRALIZADOS (Página Inicial) */
+/* PÁGINA INICIAL - O NOVO DESIGN DOS BOTÕES */
+.welcome-container { text-align: center; }
+
+.welcome-container h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+
+.welcome-container p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+
 .main-card-container {
     display: flex;
     justify-content: center;
-    gap: 25px;
-    margin-top: 50px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
-.main-card-link {
-    width: 320px;
-    height: 180px;
+/* Estilizando o Cartão do Portal */
+.portal-card {
+    background: white;
+    width: 380px;
+    height: 120px;
+    border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    padding: 0 30px;
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.portal-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* Ícones dos Cartões */
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-.main-card-link:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
-}
-
-.main-card-link h2 {
-    margin: 0;
     font-size: 1.5rem;
+    margin-right: 20px;
+}
+
+.diagnostica .card-icon {
+    background-color: rgba(0, 194, 203, 0.1);
+    color: var(--secondary);
+}
+
+.intervencionista .card-icon {
+    background-color: rgba(0, 92, 105, 0.1);
+    color: var(--primary);
+}
+
+/* Conteúdo dos Cartões */
+.card-content { text-align: left; }
+
+.card-content h2 {
+    margin: 0;
+    font-size: 1.25rem;
     font-weight: 600;
+    color: var(--text-main);
 }
 
-.main-card-link span {
-    margin-top: 10px;
-    font-size: 0.85rem;
-    background: rgba(255,255,255,0.2);
-    padding: 5px 15px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.card-content p {
+    margin: 3px 0 0 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
 }
 
-/* Grid e Colunas dos Mapas */
+/* Seta do Cartão */
+.card-arrow {
+    position: absolute;
+    right: 30px;
+    color: #ddd;
+    font-size: 1.2rem;
+    transition: 0.3s;
+}
+
+.portal-card:hover .card-arrow {
+    color: var(--secondary);
+    right: 25px;
+}
+
+/* Efeito de Gradiente de Fundo no Hover */
+.portal-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    transition: 0.4s;
+    z-index: -1;
+}
+
+.diagnostica:hover::after {
+    background: linear-gradient(135deg, white, rgba(0, 194, 203, 0.05));
+    opacity: 1;
+}
+
+.intervencionista:hover::after {
+    background: linear-gradient(135deg, white, rgba(0, 92, 105, 0.05));
+    opacity: 1;
+}
+
+/* PÁGINAS INTERNAS - Mapas de Exame */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #e0e6ed;
+    padding-bottom: 20px;
+}
+
+.page-header h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.back-btn {
+    background: transparent !important;
+    color: var(--primary) !important;
+    border: 2px solid var(--primary) !important;
+    width: auto !important;
+    padding: 10px 20px !important;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    gap: 8px;
+    display: flex; align-items: center;
+}
+
+.back-btn:hover {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+/* Grid Moderno */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
 }
 
 .column {
     background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border-top: 5px solid #00c2cb;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    transition: 0.3s;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.column:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
 .column h3 {
-    color: #005c69;
-    font-size: 0.9rem;
+    color: var(--primary);
+    font-size: 1rem;
     text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
 }
 
+/* Botões de Procedimentos Modernos */
 .column button {
     width: 100%;
-    margin-bottom: 10px;
-    padding: 12px;
+    margin-bottom: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #00c2cb, #005c69);
-    color: white;
+    border-radius: 12px;
+    background: white;
+    color: var(--primary);
     cursor: pointer;
     font-weight: 600;
     font-size: 0.85rem;
-    transition: 0.2s;
+    transition: 0.3s;
+    border: 1px solid #e0e6ed;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.column button::after {
+    content: '+';
+    color: var(--secondary);
+    font-weight: 400;
+    font-size: 1.1rem;
 }
 
 .column button:hover {
-    filter: brightness(1.1);
-    transform: scale(1.02);
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 92, 105, 0.2);
 }
 
-/* Modal (Janelinha) */
+.column button:hover::after {
+    color: var(--secondary-light);
+}
+
+/* Modal Moderno e Elegante */
 .modal {
     display: none;
     position: fixed;
     z-index: 2000;
     left: 0; top: 0; width: 100%; height: 100%;
-    background: rgba(0, 92, 105, 0.4);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 40, 50, 0.5); /* Fundo azul petróleo escuro suave */
+    backdrop-filter: blur(5px); /* Desfoque de fundo */
+    animation: fadeInModal 0.3s ease;
 }
 
 .modal-content {
     background: white;
     margin: 10% auto;
-    padding: 30px;
+    padding: 40px;
     width: 90%;
-    max-width: 500px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-width: 550px;
+    border-radius: 25px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
     text-align: center;
     position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.modal-header-icon {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 20px;
+}
+
+.modal-content h2 {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.modal-divider {
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    border-radius: 10px;
+    margin: 20px auto;
+}
+
+.modal-content p {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0;
 }
 
 .close {
     position: absolute;
-    right: 20px; top: 15px;
-    font-size: 24px;
+    right: 25px; top: 20px;
+    font-size: 1.5rem;
     cursor: pointer;
-    color: #999;
+    color: #bbb;
+    transition: 0.2s;
+}
+
+.close:hover { color: var(--text-main); transform: rotate(90deg); }
+
+@keyframes fadeInModal {
+    from { opacity: 0; } to { opacity: 1; }
+}
+
+/* Responsividade */
+@media (max-width: 800px) {
+    .portal-card { width: 100%; }
+    .welcome-container h1 { font-size: 2.2rem; }
+    .modal-content { padding: 30px; margin: 20% auto; }
 }
