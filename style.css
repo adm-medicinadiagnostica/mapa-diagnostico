@@ -1,11 +1,10 @@
-/* Configurações Gerais */
+/* Paleta de Cores Vera Cruz: #005c69 (Escuro) e #00c2cb (Claro) */
+
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f7f6;
+    background-color: #f8fafb;
     color: #333;
-    line-height: 1.6;
 }
 
 /* Menu Superior */
@@ -14,19 +13,16 @@ nav {
     padding: 15px;
     display: flex;
     justify-content: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 nav button {
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.4);
     color: white;
     padding: 8px 25px;
     cursor: pointer;
-    border-radius: 20px;
+    border-radius: 25px;
     font-weight: 500;
     transition: 0.3s;
 }
@@ -36,114 +32,138 @@ nav button:hover {
     color: #005c69;
 }
 
-/* Estrutura de Páginas */
+/* Páginas */
 .page {
     display: none;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    animation: fadeIn 0.5s;
+    padding: 40px 20px;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
-.active {
-    display: block;
-}
+.active { display: block; }
 
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Cabeçalho das Páginas Internas */
-.page-header {
+/* BOTÕES CENTRALIZADOS (Página Inicial) */
+.main-card-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #00c2cb;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 50px;
+    flex-wrap: wrap;
 }
 
-.page-header h2 {
-    color: #005c69;
-    margin: 0;
-}
-
-.back-btn {
-    background: #e0e0e0 !important;
-    color: #333 !important;
-    width: auto !important;
-    padding: 8px 15px !important;
-    font-size: 0.9rem;
-}
-
-/* Cartões da Página Inicial */
 .main-card-link {
-    width: 280px;
-    padding: 50px 20px;
-    color: white;
+    width: 320px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 15px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    color: white;
     text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 20px;
 }
 
 .main-card-link:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-    filter: brightness(1.1);
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
 }
 
 .main-card-link h2 {
-    margin: 0 0 10px 0;
-    font-size: 1.6rem;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .main-card-link span {
+    margin-top: 10px;
     font-size: 0.85rem;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    background: rgba(0,0,0,0.1);
-    padding: 5px 10px;
-    border-radius: 5px;
 }
 
-/* Grid de Colunas dos Mapas */
+/* Grid e Colunas dos Mapas */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 20px;
-    align-items: start;
 }
 
 .column {
     background: white;
-    padding: 15px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-top: 6px solid #00c2cb;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-top: 5px solid #00c2cb;
 }
 
 .column h3 {
-    font-size: 0.95rem;
-    text-align: center;
     color: #005c69;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    text-align: center;
+    margin-bottom: 20px;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
 }
 
-/* Botões de Procedimentos */
 .column button {
     width: 100%;
     margin-bottom: 10px;
-    padding: 12px 10px;
+    padding: 12px;
     border: none;
     border-radius: 8px;
     background: linear-gradient(135deg, #00c2cb, #005c69);
     color: white;
     cursor: pointer;
-    font-size: 0.85rem;
     font-weight: 600;
+    font-size: 0.85rem;
+    transition: 0.2s;
+}
+
+.column button:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+}
+
+/* Modal (Janelinha) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0; width: 100%; height: 100%;
+    background: rgba(0, 92, 105, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: white;
+    margin: 10% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px; top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+}
