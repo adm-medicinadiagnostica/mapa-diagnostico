@@ -3,29 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Exames e Procedimentos Interno - Vera Cruz</title>
+    <title>Portal Exames e Procedimentos Interno - Vera Cruz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav>
-        <button onclick="showPage('home')">Página Inicial</button>
+        <div class="nav-container">
+            <span class="brand">Hospital <strong>Vera Cruz</strong></span>
+            <button onclick="showPage('home')"><i class="fas fa-home"></i> Início</button>
+        </div>
     </nav>
 
     <section id="home" class="page active">
-        <div style="text-align: center; padding-top: 50px;">
-            <h1 style="color: #005c69; font-size: 2.5rem; margin-bottom: 10px;">Bem-vindo (a), Usuario (a)!</h1>
-            <p style="color: #666; font-size: 1.1rem; margin-bottom: 40px;">Selecione a área desejada para consultar os protocolos estruturados.</p>
+        <div class="welcome-container">
+            <h1>Olá, Colaborador (a)!.</h1>
+            <p>Selecione a área desejada para consultar os protocolos estruturados do hospital.</p>
             
             <div class="main-card-container">
-                <div class="main-card-link" onclick="showPage('diagnostica')" style="background-color: #00c2cb;">
-                    <h2>Medicina Diagnóstica</h2>
-                    <span>Clique para aceder</span>
+                <div class="portal-card diagnostica" onclick="showPage('diagnostica')">
+                    <div class="card-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Medicina Diagnóstica</h2>
+                        <p>Consultar exames e laudos</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </div>
                 
-                <div class="main-card-link" onclick="showPage('intervencionista')" style="background-color: #005c69;">
-                    <h2>Medicina Intervencionista</h2>
-                    <span>Clique para aceder</span>
+                <div class="portal-card intervencionista" onclick="showPage('intervencionista')">
+                    <div class="card-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="card-content">
+                        <h2>Medicina Intervencionista</h2>
+                        <p>Procedimentos e consultas</p>
+                    </div>
+                    <div class="card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,7 +57,7 @@
     <section id="diagnostica" class="page">
         <div class="page-header">
             <h2>Medicina Diagnóstica</h2>
-            <button class="back-btn" onclick="showPage('home')">← Voltar ao Início</button>
+            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
         </div>
         <div class="grid-container">
             <div class="column">
@@ -99,7 +122,7 @@
     <section id="intervencionista" class="page">
         <div class="page-header">
             <h2>Medicina Intervencionista</h2>
-            <button class="back-btn" onclick="showPage('home')">← Voltar ao Início</button>
+            <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
         </div>
         <div class="grid-container">
             <div class="column">
@@ -144,9 +167,12 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-header-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
             <h2 id="modal-title"></h2>
-            <hr>
-            <p id="modal-text" style="margin-top: 20px;"></p>
+            <div class="modal-divider"></div>
+            <p id="modal-text"></p>
         </div>
     </div>
 
