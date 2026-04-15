@@ -1,14 +1,17 @@
-/* Paleta de Cores Refinada Vera Cruz: #005c69 (Petróleo) e #00c2cb (Turquesa) */
+/* Paleta de Cores Identidade Visual Hospital Vera Cruz Campinas */
+/* Azul Royal/Escuro: #004a99 (Principal) */
+/* Branco/Prata: Fundo e Detalhes */
 
 :root {
-    --primary: #005c69;
-    --primary-light: #007a8b;
-    --secondary: #00c2cb;
-    --secondary-light: #66dbe1;
-    --background: #f0f4f7;
-    --text-main: #2c3e50;
-    --text-light: #7f8c8d;
-    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --primary-blue: #004a99; /* Azul Royal/Escuro Principal */
+    --primary-blue-dark: #003366; /* Azul mais escuro para hover */
+    --primary-blue-light: #e6f0fa; /* Azul claríssimo para fundos de ícone */
+    --background-site: #f4f7f6; /* Cinza claríssimo/Prata para fundo geral */
+    --text-main: #2c3e50; /* Cinza escuro para texto principal */
+    --text-light: #7f8c8d; /* Cinza claro para subtítulos */
+    --white: #ffffff;
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.05);
+    --shadow-medium: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 * {
@@ -19,19 +22,27 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    background-color: var(--background);
+    background-color: var(--background-site);
     color: var(--text-main);
     font-weight: 400;
 }
 
-/* Menu Superior Moderno */
+/* GARANTIR MÃOZINHA EM TUDO QUE É CLICÁVEL */
+button, 
+.portal-card, 
+.close, 
+.back-btn {
+    cursor: pointer !important;
+}
+
+/* Menu Superior (Branco com detalhes em Azul Royal) */
 nav {
-    background-color: white;
+    background-color: var(--white);
     padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
 }
 
 .nav-container {
@@ -45,18 +56,17 @@ nav {
 
 .brand {
     font-size: 1.3rem;
-    color: var(--primary);
+    color: var(--primary-blue);
     font-weight: 300;
 }
 
 .brand strong { font-weight: 700; }
 
 nav button {
-    background: var(--primary);
+    background: var(--primary-blue);
     border: none;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
+    color: var(--white);
+    padding: 10px 25px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -67,8 +77,8 @@ nav button {
 }
 
 nav button:hover {
-    background: var(--primary-light);
-    transform: translateY(-2px);
+    background: var(--primary-blue-dark);
+    transform: translateY(-1px);
 }
 
 /* Estrutura de Páginas e Animação */
@@ -83,17 +93,17 @@ nav button:hover {
 .active { display: block; }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* PÁGINA INICIAL - O NOVO DESIGN DOS BOTÕES */
+/* PÁGINA INICIAL - O NOVO DESIGN DOS CARTÕES */
 .welcome-container { text-align: center; }
 
 .welcome-container h1 {
     font-size: 3rem;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--primary-blue);
     margin: 0;
 }
 
@@ -111,48 +121,39 @@ nav button:hover {
     flex-wrap: wrap;
 }
 
-/* Estilizando o Cartão do Portal */
+/* Estilizando o Cartão do Portal (Branco com ícone Azul Royal) */
 .portal-card {
-    background: white;
+    background: var(--white);
     width: 380px;
     height: 120px;
     border-radius: 20px;
     display: flex;
     align-items: center;
     padding: 0 30px;
-    cursor: pointer;
     transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-soft);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
 }
 
 .portal-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-medium);
 }
 
-/* Ícones dos Cartões */
+/* Ícones dos Cartões (Fundo Azul Claríssimo, Ícone Azul Royal) */
 .card-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
+    width: 65px;
+    height: 65px;
+    border-radius: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
-    margin-right: 20px;
-}
-
-.diagnostica .card-icon {
-    background-color: rgba(0, 194, 203, 0.1);
-    color: var(--secondary);
-}
-
-.intervencionista .card-icon {
-    background-color: rgba(0, 92, 105, 0.1);
-    color: var(--primary);
+    font-size: 1.6rem;
+    margin-right: 25px;
+    background-color: var(--primary-blue-light);
+    color: var(--primary-blue);
 }
 
 /* Conteúdo dos Cartões */
@@ -160,49 +161,29 @@ nav button:hover {
 
 .card-content h2 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-main);
 }
 
 .card-content p {
     margin: 3px 0 0 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-light);
 }
 
-/* Seta do Cartão */
+/* Seta do Cartão (Azul Royal no Hover) */
 .card-arrow {
     position: absolute;
     right: 30px;
-    color: #ddd;
+    color: #d1d8e0;
     font-size: 1.2rem;
     transition: 0.3s;
 }
 
 .portal-card:hover .card-arrow {
-    color: var(--secondary);
+    color: var(--primary-blue);
     right: 25px;
-}
-
-/* Efeito de Gradiente de Fundo no Hover */
-.portal-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0;
-    transition: 0.4s;
-    z-index: -1;
-}
-
-.diagnostica:hover::after {
-    background: linear-gradient(135deg, white, rgba(0, 194, 203, 0.05));
-    opacity: 1;
-}
-
-.intervencionista:hover::after {
-    background: linear-gradient(135deg, white, rgba(0, 92, 105, 0.05));
-    opacity: 1;
 }
 
 /* PÁGINAS INTERNAS - Mapas de Exame */
@@ -216,52 +197,51 @@ nav button:hover {
 }
 
 .page-header h2 {
-    color: var(--primary);
-    font-size: 2rem;
+    color: var(--primary-blue);
+    font-size: 2.2rem;
     font-weight: 700;
     margin: 0;
 }
 
 .back-btn {
     background: transparent !important;
-    color: var(--primary) !important;
-    border: 2px solid var(--primary) !important;
+    color: var(--primary-blue) !important;
+    border: 2px solid var(--primary-blue) !important;
     width: auto !important;
-    padding: 10px 20px !important;
+    padding: 10px 25px !important;
     border-radius: 50px;
     font-size: 0.9rem;
     gap: 8px;
     display: flex; align-items: center;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .back-btn:hover {
-    background: var(--primary) !important;
-    color: white !important;
+    background: var(--primary-blue) !important;
+    color: var(--white) !important;
+    transform: translateX(-3px);
 }
 
 /* Grid Moderno */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 25px;
 }
 
 .column {
-    background: white;
+    background: var(--white);
     padding: 25px;
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+    box-shadow: var(--shadow-soft);
     transition: 0.3s;
-    border: 1px solid rgba(0,0,0,0.02);
-}
-
-.column:hover {
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.01);
 }
 
 .column h3 {
-    color: var(--primary);
-    font-size: 1rem;
+    color: var(--primary-blue);
+    font-size: 1.05rem;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
@@ -271,101 +251,104 @@ nav button:hover {
     border-bottom: 1px solid #eee;
 }
 
-/* Botões de Procedimentos Modernos */
+/* Botões de Procedimentos Modernos (Brancos, Azul Royal no Hover) */
 .column button {
     width: 100%;
     margin-bottom: 12px;
-    padding: 14px;
+    padding: 15px;
     border: none;
     border-radius: 12px;
-    background: white;
-    color: var(--primary);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
+    background: var(--white);
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.9rem;
     transition: 0.3s;
     border: 1px solid #e0e6ed;
     text-align: left;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .column button::after {
-    content: '+';
-    color: var(--secondary);
-    font-weight: 400;
-    font-size: 1.1rem;
+    content: '\f054'; /* Ícone de seta chevron-right do FontAwesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #d1d8e0;
+    font-size: 0.8rem;
+    transition: 0.3s;
 }
 
 .column button:hover {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    transform: translateX(5px);
-    box-shadow: 0 5px 15px rgba(0, 92, 105, 0.2);
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+    transform: translateX(4px);
+    font-weight: 600;
 }
 
 .column button:hover::after {
-    color: var(--secondary-light);
+    color: var(--white);
+    transform: translateX(2px);
 }
 
-/* Modal Moderno e Elegante */
+/* Modal Moderno e Elegante (Azul Royal e Branco) */
 .modal {
     display: none;
     position: fixed;
     z-index: 2000;
     left: 0; top: 0; width: 100%; height: 100%;
-    background: rgba(0, 40, 50, 0.5); /* Fundo azul petróleo escuro suave */
+    background: rgba(0, 30, 60, 0.6); /* Fundo azul escuro translúcido */
     backdrop-filter: blur(5px); /* Desfoque de fundo */
     animation: fadeInModal 0.3s ease;
 }
 
 .modal-content {
-    background: white;
-    margin: 10% auto;
+    background: var(--white);
+    margin: 8% auto;
     padding: 40px;
     width: 90%;
     max-width: 550px;
     border-radius: 25px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
     text-align: center;
     position: relative;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.03);
 }
 
 .modal-header-icon {
-    font-size: 2.5rem;
-    color: var(--secondary);
+    font-size: 2.8rem;
+    color: var(--primary-blue);
     margin-bottom: 20px;
 }
 
 .modal-content h2 {
-    color: var(--primary);
+    color: var(--primary-blue);
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     margin: 0;
 }
 
 .modal-divider {
     width: 60px;
     height: 4px;
-    background: var(--secondary);
+    background: var(--primary-blue);
     border-radius: 10px;
-    margin: 20px auto;
+    margin: 25px auto;
 }
 
 .modal-content p {
     color: var(--text-main);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     margin: 0;
+    font-weight: 400;
 }
 
 .close {
     position: absolute;
     right: 25px; top: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
+    font-size: 1.6rem;
     color: #bbb;
     transition: 0.2s;
 }
@@ -378,7 +361,8 @@ nav button:hover {
 
 /* Responsividade */
 @media (max-width: 800px) {
-    .portal-card { width: 100%; }
-    .welcome-container h1 { font-size: 2.2rem; }
-    .modal-content { padding: 30px; margin: 20% auto; }
+    .portal-card { width: 100%; height: 110px; }
+    .welcome-container h1 { font-size: 2.5rem; }
+    .modal-content { padding: 30px; margin: 15% auto; width: 85%; }
+    .grid-container { grid-template-columns: 1fr; }
 }
