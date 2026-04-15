@@ -6,6 +6,7 @@ function showPage(pageId) {
     const buttons = document.querySelectorAll('.nav-btn');
     buttons.forEach(btn => btn.classList.remove('active-btn'));
     
+    // Atualiza o botão ativo no menu
     const activeBtn = document.getElementById('btn-' + pageId);
     if (activeBtn) activeBtn.classList.add('active-btn');
 
