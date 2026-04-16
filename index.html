@@ -17,7 +17,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; }
 
-        /* SIDEBAR BLINDADA (Corrige o erro das imagens) */
+        /* Sidebar Blindada */
         .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
         .sidebar-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .logo-box { width: 50px; height: 50px; background: var(--teal); color: var(--navy); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem; }
@@ -27,18 +27,18 @@
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-btn.active { background: var(--primary); color: white; border-left: 6px solid var(--teal); font-weight: 700; }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* Conteúdo */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* PESQUISA SOFISTICADA */
+        /* Busca Sofisticada */
         .search-area { position: relative; max-width: 500px; margin-bottom: 30px; }
         .search-area i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
         .search-area input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; background: var(--white); }
 
-        /* CARDS INDIVIDUAIS (Conforme os Mapas) */
+        /* Cards Layout */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
         .card-unit { background: white; border-radius: 20px; box-shadow: var(--shadow); border-top: 6px solid var(--primary); overflow: hidden; display: flex; flex-direction: column; }
         .card-header { background: #f8fafc; padding: 15px; font-weight: 700; text-align: center; font-size: 0.8rem; border-bottom: 1px solid #eee; text-transform: uppercase; color: var(--navy); }
@@ -48,7 +48,7 @@
         .teal-card { border-top-color: var(--teal); }
         .gray-card { border-top-color: #64748b; }
 
-        /* AGENDA E KPI PILLS */
+        /* Agenda e Rodapé */
         .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
         .kpi-pill { padding: 12px 20px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.75rem; box-shadow: var(--shadow); }
         .pill-green { background: #10b981; } .pill-blue { background: #3b82f6; } .pill-red { background: #ef4444; } .pill-orange { background: #f59e0b; } .pill-dark { background: #1e293b; }
@@ -58,20 +58,16 @@
         .tab-btn { width: 100%; padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; margin-bottom: 5px; }
         .tab-btn.active { background: var(--primary); color: white; }
         
-        .ag-field { margin-bottom: 12px; }
-        .ag-field label { font-size: 0.65rem; font-weight: 700; color: var(--primary); display: block; margin-bottom: 3px; }
-        .ag-field select, .ag-field input { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.8rem; }
-
         .grade-wrapper { flex: 1; background: white; border-radius: 20px; overflow: auto; border: 1px solid #f1f5f9; }
         .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
         .grade-table th { background: var(--navy); color: white; padding: 12px; position: sticky; top: 0; z-index: 5; }
         .grade-table td { border: 1px solid #f1f5f9; padding: 4px; text-align: center; }
+        .grade-table tr.total-row { background: #f8fafc; font-weight: 800; color: var(--primary); border-top: 2px solid #ddd; }
         .especifico-input { width: 100%; border: 1px solid #ddd; border-radius: 4px; font-size: 0.6rem; margin-top: 3px; display: none; padding: 2px; }
 
-        /* MODAL E RODAPÉ */
+        .footer-version { position: fixed; bottom: 20px; right: 40px; font-size: 0.75rem; color: #cbd5e1; font-weight: 800; }
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); z-index: 1000; }
         .modal-content { background: white; margin: 10% auto; padding: 40px; border-radius: 30px; width: 450px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .footer-version { position: fixed; bottom: 20px; right: 40px; font-size: 0.75rem; color: #cbd5e1; font-weight: 800; }
     </style>
 </head>
 <body>
@@ -95,7 +91,7 @@
         <section id="dashboard" class="page">
             <div class="card-unit" style="padding: 40px; text-align: center;">
                 <h2>Dashboard de Performance Operacional</h2>
-                <p>Métricas de volume, ocupação e produtividade.</p>
+                <p>Métricas de volume, ocupação e produtividade técnica.</p>
             </div>
         </section>
 
@@ -117,13 +113,13 @@
         <section id="diagnostica" class="page">
             <div class="search-area">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Filtrar categorias ou exames..." onkeyup="filterCards(this, 'grid-diag')">
+                <input type="text" placeholder="Filtrar categorias ou exames em Diagnóstica..." onkeyup="filterCards(this, 'grid-diag')">
             </div>
             <div class="grid-layout" id="grid-diag">
                 <div class="card-unit"><div class="card-header">ANESTESIA</div><div class="card-body">
                     <button onclick="openModal('Anestesia US', 'Protocolo Anestesia US')">Anestesia para Ultrassom</button>
-                    <button onclick="openModal('Anestesia TC', 'Protocolo Anestesia TC')">Anestesia para Tomografia</button>
-                    <button onclick="openModal('Anestesia RM', 'Protocolo Anestesia RM')">Anestesia para Ressonância</button>
+                    <button onclick="openModal('Anestesia Tomo', 'Protocolo Anestesia Tomografia')">Anestesia para Tomografia</button>
+                    <button onclick="openModal('Anestesia RM', 'Protocolo Anestesia Ressonância')">Anestesia para Ressonância</button>
                 </div></div>
                 <div class="card-unit"><div class="card-header">DENSITOMETRIA</div><div class="card-body">
                     <button>Avaliação VFL</button><button>Corpo Inteiro</button><button>Um Segmento</button><button>Dois Seguimentos</button>
@@ -147,6 +143,10 @@
         </section>
 
         <section id="intervencionista" class="page">
+            <div class="search-area">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Filtrar categorias ou exames em Intervencionista..." onkeyup="filterCards(this, 'grid-inter')">
+            </div>
             <div class="grid-layout" id="grid-inter">
                 <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO SUPERFICIAL</div><div class="card-body">
                     <button>PAAF SUPERFICIAL</button>
@@ -160,6 +160,9 @@
                 <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO EM PRÓSTATA</div><div class="card-body">
                     <button>Transretal Simples</button><button>Transretal com Fusão</button><button>Transperineal Particular</button>
                 </div></div>
+                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTOS DIVERSOS</div><div class="card-body">
+                    <button>Anestesia</button><button>Artro RM</button><button>Consulta</button><button>Dacrio</button>
+                </div></div>
             </div>
         </section>
 
@@ -170,6 +173,9 @@
                 </div></div>
                 <div class="card-unit gray-card"><div class="card-header">ASSISTENCIAL</div><div class="card-body">
                     <button>Enfermagem</button><button>Técnico de Radiologia</button>
+                </div></div>
+                <div class="card-unit gray-card"><div class="card-header">MÉDICO</div><div class="card-body">
+                    <button>Médico Radiologista</button>
                 </div></div>
             </div>
         </section>
@@ -185,17 +191,16 @@
             <div class="agenda-system">
                 <div class="ag-sidebar">
                     <div id="agTabs" class="ag-tabs"></div>
-                    <div class="ag-field"><label>Mês:</label><select id="selMes" onchange="loadAg()"></select></div>
-                    <div class="ag-field"><label>Ano:</label><select id="selAno" onchange="carregarAg()"></select></div>
-                    <div class="ag-field"><label>Nome da Sala:</label><input type="text" id="renameAg" placeholder="Identificação"></div>
-                    <button onclick="saveAg()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Parâmetros</button>
+                    <div style="margin-top:10px;"><label style="font-size:0.7rem; font-weight:700;">Mês:</label><select id="selMes" onchange="loadAg()" style="width:100%; padding:5px; border-radius:5px;"></select></div>
+                    <div style="margin-top:10px;"><label style="font-size:0.7rem; font-weight:700;">Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" style="width:100%; padding:5px; border-radius:5px;"></div>
+                    <button onclick="saveAg()" style="width:100%; padding:12px; margin-top:15px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
                     <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); border:none; border-radius:10px; cursor:pointer; font-weight:700;">Preencher Eletivo</button>
                 </div>
                 <div class="grade-wrapper" id="gradeDiv"></div>
             </div>
         </section>
 
-        <footer class="footer-version">Versão 21.0 - Hospital Vera Cruz</footer>
+        <footer class="footer-version">Versão 22.0 - Hospital Vera Cruz</footer>
     </main>
 
     <div id="modal" class="modal">
@@ -216,9 +221,7 @@
 
         function init() {
             const m = document.getElementById('selMes');
-            const a = document.getElementById('selAno');
             months.forEach((name, i) => m.add(new Option(name, i)));
-            for (let i = 2026; i <= 2028; i++) a.add(new Option(i, i));
             m.value = new Date().getMonth();
 
             const tabs = document.getElementById('agTabs');
@@ -248,17 +251,22 @@
                 for (let d = 0; d < 7; d++) {
                     const id = `s-${min}-${d}`;
                     html += `<td>
-                        <select class="s-inp" id="${id}" onchange="toggleEs(this)">
-                            <option value="el">Eletivo</option><option value="ps">P.S.</option>
-                            <option value="in">Internado</option><option value="ma">Manut.</option>
-                            <option value="re">Respiro</option><option value="es">Específico</option>
+                        <select class="s-inp" id="${id}" data-day="${d}" onchange="toggleEs(this)">
+                            <option value="el">EX</option><option value="ma">MA</option><option value="ps">PS</option><option value="in">IN</option><option value="re">RE</option><option value="es">ESP</option>
                         </select>
-                        <input type="text" id="${id}-tx" class="especifico-input" placeholder="Exame...">
+                        <input type="text" id="${id}-tx" class="especifico-input" placeholder="...">
                     </td>`;
                 }
                 html += `</tr>`;
             }
-            cont.innerHTML = html + `</tbody></table>`;
+
+            // Rodapé de Somas por Dia
+            html += `<tr class="total-row"><td>Total/Dia</td>`;
+            for (let d = 0; d < 7; d++) {
+                html += `<td id="total-day-${d}">0</td>`;
+            }
+            html += `</tr></tbody></table>`;
+            cont.innerHTML = html;
             calcAg();
         }
 
@@ -269,13 +277,26 @@
 
         function calcAg() {
             let el = 0, ur = 0, ma = 0, re = 0;
+            let daySums = [0, 0, 0, 0, 0, 0, 0];
+
             document.querySelectorAll('.s-inp').forEach(s => {
+                const day = parseInt(s.dataset.day);
+                if(s.value === 'el' || s.value === 'es' || s.value === 'ps' || s.value === 'in') {
+                    daySums[day]++;
+                }
+
                 if(s.value === 'el' || s.value === 'es') el++;
                 if(s.value === 'ps' || s.value === 'in') ur++;
                 if(s.value === 'ma') ma++;
                 if(s.value === 're') re++;
-                s.parentElement.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : (s.value === 'ps' || s.value === 'in' ? '#eff6ff' : '#dcfce7');
+                
+                s.parentElement.style.backgroundColor = s.value === 'ma' ? '#fee2e2' : (s.value === 're' ? '#fff7ed' : '#dcfce7');
             });
+
+            daySums.forEach((sum, i) => {
+                document.getElementById(`total-day-${i}`).innerText = sum;
+            });
+
             const f = 4.3;
             document.getElementById('kpiEl').innerText = Math.round(el * f);
             document.getElementById('kpiUr').innerText = Math.round(ur * f);
@@ -285,16 +306,16 @@
         }
 
         function saveAg() {
-            const key = `v21_${currentAgId}_${document.getElementById('selMes').value}`;
+            const key = `v22_${currentAgId}_${document.getElementById('selMes').value}`;
             const data = { n: document.getElementById('renameAg').value, m: [] };
             document.querySelectorAll('.s-inp').forEach(s => data.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value }));
             localStorage.setItem(key, JSON.stringify(data));
-            alert("Salvo!");
+            alert("Parametrização Salva!");
         }
 
         function loadAg() {
             gerarGrade();
-            const key = `v21_${currentAgId}_${document.getElementById('selMes').value}`;
+            const key = `v22_${currentAgId}_${document.getElementById('selMes').value}`;
             const s = localStorage.getItem(key);
             if(s) {
                 const d = JSON.parse(s);
