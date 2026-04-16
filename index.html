@@ -31,7 +31,7 @@
         <section id="home" class="page active">
             <div class="welcome-container">
                 <h1>Portal de Consulta de Fluxos Medicina Diagnóstica</h1>
-                <p>Suporte operacional e estratégico Hospital Vera Cruz</p>
+                <p>Suporte operacional e estratégico | Hospital Vera Cruz</p>
                 <div class="main-card-container">
                     <div class="portal-card" onclick="showPage('diagnostica')">
                         <div class="card-icon blue"><i class="fas fa-notes-medical"></i></div>
@@ -52,15 +52,15 @@
             </div>
             <div class="search-premium">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchDiag" placeholder="Buscar exame ou código..." onkeyup="filtrar('diagnostica')">
+                <input type="text" id="searchDiag" placeholder="Pesquisar exame ou categoria..." onkeyup="filtrar('diagnostica')">
             </div>
             <div class="grid-container" id="grid-diagnostica">
                 <div class="column-card">
                     <div class="column-header">Anestesia</div>
                     <div class="button-list">
-                        <button onclick="openModal('Anestesia US', 'Protocolo para US.')">Anestesia para exame de Ultrassom</button>
-                        <button onclick="openModal('Anestesia Tomo', 'Protocolo para Tomo.')">Anestesia para exame de Tomografia</button>
-                        <button onclick="openModal('Anestesia RM', 'Protocolo para RM.')">Anestesia para exame de Ressonância</button>
+                        <button onclick="openModal('Anestesia US', 'Protocolo para US.')">Anestesia para US</button>
+                        <button onclick="openModal('Anestesia Tomo', 'Protocolo para Tomo.')">Anestesia para Tomo</button>
+                        <button onclick="openModal('Anestesia RM', 'Protocolo para RM.')">Anestesia para RM</button>
                     </div>
                 </div>
                 <div class="column-card">
@@ -95,11 +95,14 @@
                     </div>
                 </div>
                 <div class="column-card">
-                    <div class="column-header">Raio X e Densitometria</div>
+                    <div class="column-header">Densitometria e Raio X</div>
                     <div class="button-list">
-                        <button onclick="openModal('RX Geral', 'Tórax, Abdome, Esqueleto.')">Raio-X</button>
-                        <button onclick="openModal('Densitometria', 'Coluna, Fêmur, LVA.')">Densitometria</button>
-                        <button onclick="openModal('Mamografia', 'Digital e Tomossíntese.')">Mamografia</button>
+                        <button onclick="openModal('Avaliação VFL', 'Análise de fratura vertebral.')">Avaliação VFL</button>
+                        <button onclick="openModal('Corpo Inteiro', 'Densitometria corporal.')">Corpo Inteiro</button>
+                        <button onclick="openModal('Um Segmento', 'Análise de 01 segmento.')">Um Segmento</button>
+                        <button onclick="openModal('Mamografia Digital', 'MAMOGRAFIA DIGITAL.')">MAMOGRAFIA DIGITAL</button>
+                        <button onclick="openModal('Tomossíntese Mamária', 'TOMOSSÍNTESE MAMÁRIA.')">TOMOSSÍNTESE MAMÁRIA</button>
+                        <button onclick="openModal('RX Geral', 'Tórax, Abdome, Esqueleto.')">Raio-X Geral</button>
                     </div>
                 </div>
             </div>
@@ -112,7 +115,7 @@
             </div>
             <div class="search-premium">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInter" placeholder="Buscar procedimento..." onkeyup="filtrar('intervencionista')">
+                <input type="text" id="searchInter" placeholder="Pesquisar procedimento..." onkeyup="filtrar('intervencionista')">
             </div>
             <div class="grid-container" id="grid-intervencionista">
                 <div class="column-card accent-teal">
@@ -125,6 +128,7 @@
                         <button onclick="openModal('PAAF Profundo', 'Punção Profunda.')">PAAF Profundo</button>
                         <button onclick="openModal('Paracentese', 'Drenagem de Ascite.')">Paracentese</button>
                         <button onclick="openModal('Toracocentese', 'Drenagem Pleural.')">Toracocentese</button>
+                        <button onclick="openModal('Colangiografia', 'Drenagem Biliar.')">Colangiografia</button>
                     </div>
                 </div>
                 <div class="column-card accent-teal">
@@ -133,8 +137,19 @@
                         <button onclick="openModal('Core Biopsy', 'Fragmento Mama.')">Core Biopsy</button>
                         <button onclick="openModal('Mamotomia', 'Biópsia Vácuo.')">Mamotomia</button>
                         <button onclick="openModal('Marcação', 'Agulhamento.')">Marcação</button>
+                        <button onclick="openModal('PAAF Mama', 'Punção de Mama.')">PAAF em Mama</button>
                         <button onclick="openModal('Próstata Fusão', 'RM/US Fusão.')">Transretal com Fusão</button>
                         <button onclick="openModal('Próstata Simples', 'Transretal Simples.')">Transretal Simples</button>
+                        <button onclick="openModal('Transperineal', 'Particular.')">Transperineal Particular</button>
+                    </div>
+                </div>
+                <div class="column-card accent-teal">
+                    <div class="column-header">Diversos</div>
+                    <div class="button-list">
+                        <button onclick="openModal('Anestesia Interv', 'Protocolo Anestesia.')">Anestesia</button>
+                        <button onclick="openModal('Artro RM', 'Injeção articular.')">Artro RM</button>
+                        <button onclick="openModal('Consulta', 'Consulta Pré.')">Consulta</button>
+                        <button onclick="openModal('Dacrio', 'Estudo Lacrimal.')">Dacrio</button>
                     </div>
                 </div>
             </div>
@@ -142,15 +157,15 @@
 
         <section id="fluxos" class="page">
             <div class="page-header">
-                <button class="back-btn" onclick="showPage('home')"><i class="fas fa-chevron-left"></i> Voltar</button>
+                <button class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button>
                 <h2>Departamentos</h2>
             </div>
             <div class="grid-container">
                 <div class="column-card accent-gray">
                     <div class="column-header">Atendimento</div>
                     <div class="button-list">
-                        <button onclick="openModal('Call Center', 'Agendamento.')">Call Center</button>
-                        <button onclick="openModal('Recepção', 'Faturamento.')">Recepção</button>
+                        <button onclick="openModal('Call Center', 'Fluxo Agendamento.')">Call Center</button>
+                        <button onclick="openModal('Recepção', 'Fluxo Atendimento.')">Recepção</button>
                     </div>
                 </div>
                 <div class="column-card accent-gray">
@@ -174,14 +189,15 @@
                     <div class="agenda-tabs" id="tabsAgendas">
                         </div>
                     <div class="agenda-meta">
-                        <div class="field"><label>Renomear Agenda:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1"></div>
+                        <div class="field"><label>Nome da Agenda:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1"></div>
                         <div class="field"><label>Mês:</label><select id="selMes" onchange="carregarAg()"></select></div>
                         <div class="field"><label>Ano:</label><select id="selAno" onchange="carregarAg()"></select></div>
-                        <div class="field"><label>Slot (min):</label><input type="number" id="slotMin" value="20" oninput="gerarGradeAg()"></div>
+                        <div class="field"><label>Slot (min):</label><input type="number" id="slotMin" value="20" oninput="forcarGrade()"></div>
                     </div>
                     <div class="kpi-panel">
                         <div class="kpi green"><small>Eletivos/Mês</small><span id="valEx">0</span></div>
                         <div class="kpi red"><small>Perda Manut.</small><span id="valMa">0</span></div>
+                        <div class="kpi blue"><small>Urgências</small><span id="valUr">0</span></div>
                     </div>
                 </div>
                 <div class="grade-main">
@@ -197,7 +213,7 @@
             </div>
         </section>
 
-        <footer class="footer-tag">v 6.1 - 2026 | Hospital Vera Cruz</footer>
+        <footer class="footer-tag">v 7.0 - 2026 | Hospital Vera Cruz</footer>
     </main>
 
     <div id="modal" class="modal">
