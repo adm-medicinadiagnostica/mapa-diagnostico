@@ -1,7 +1,6 @@
 let agendaAtual = 'agenda1';
 const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-// Controle de Páginas
 function showPage(p) {
     document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
     document.getElementById(p).classList.add('active');
@@ -11,11 +10,10 @@ function showPage(p) {
     if (p === 'agendas') carregarAgendaSalva();
 }
 
-// Inicializa Seletores de Mês/Ano
 function iniciarSeletores() {
     const mesSel = document.getElementById('selectMes');
     const anoSel = document.getElementById('selectAno');
-    if (!mesSel || !anoSel) return;
+    if (!mesSel) return;
     const d = new Date();
     mesesNomes.forEach((m, i) => {
         let o = new Option(m, i);
@@ -27,7 +25,6 @@ function iniciarSeletores() {
     }
 }
 
-// Seleção de Agenda no Submenu
 function selecionarAgenda(id, btn) {
     agendaAtual = id;
     document.querySelectorAll('.agenda-selector-btn').forEach(b => b.classList.remove('active'));
@@ -35,12 +32,13 @@ function selecionarAgenda(id, btn) {
     carregarAgendaSalva();
 }
 
-// Geração da Grade de Domingo a Sábado
 function gerarGrade() {
-    const slot = parseInt(document.getElementById('slotTempo').value) || 20;
+    const slotInput = document.getElementById('slotTempo');
+    const slot = slotInput ? parseInt(slotInput.value) : 20;
     const container = document.getElementById('gradeSemanal');
+    if (!container) return;
+
     const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
-    
     let html = `<table class="grade-table"><thead><tr><th>Hora</th>`;
     dias.forEach(d => html += `<th>${d}</th>`);
     html += `</tr></thead><tbody>`;
@@ -61,7 +59,7 @@ function gerarGrade() {
                     <option value="respiro">Respiro</option>
                     <option value="manutencao">Manutenção</option>
                 </select>
-                <input id="${idU}-obs" class="input-obs" placeholder="Obs..." style="width:100%; font-size:0.6rem; border:none; border-bottom:1px solid #ddd; background:transparent;">
+                <input id="${idU}-obs" class="input-obs" placeholder="..." style="width:100%; font-size:0.6rem; border:none; border-bottom:1px solid #ddd; background:transparent;">
             </td>`;
         }
         html += `</tr>`;
@@ -71,11 +69,6 @@ function gerarGrade() {
     const mesV = document.getElementById('selectMes').value;
     const anoV = document.getElementById('selectAno').value;
     document.getElementById('display-detalhe').innerText = mesesNomes[mesV] + " / " + anoV;
-    calcularProdutividade();
-}
-
-function atualizarEstilo(sel) {
-    sel.className = 'select-status status-' + sel.value;
     calcularProdutividade();
 }
 
@@ -95,6 +88,11 @@ function aplicarEmMassa() {
             sel.className = 'select-status status-' + status;
         }
     });
+    calcularProdutividade();
+}
+
+function atualizarEstilo(sel) {
+    sel.className = 'select-status status-' + sel.value;
     calcularProdutividade();
 }
 
@@ -127,8 +125,7 @@ function salvarAgenda() {
         dados.mapa.push({ id: s.id, st: s.value, obs: document.getElementById(s.id.replace('-sel', '-obs')).value });
     });
     localStorage.setItem(key, JSON.stringify(dados));
-    document.getElementById('display-titulo').innerText = dados.titulo || "Agenda Hospitalar";
-    alert("Parametrização Gravada!");
+    alert("Parametrização Salva!");
 }
 
 function carregarAgendaSalva() {
@@ -140,14 +137,15 @@ function carregarAgendaSalva() {
     if (salvo) {
         const d = JSON.parse(salvo);
         document.getElementById('renameAgenda').value = d.titulo || "";
-        document.getElementById('slotTempo').value = d.slot;
+        document.getElementById('slotTempo').value = d.slot || 20;
         gerarGrade();
         d.mapa.forEach(item => {
             const s = document.getElementById(item.id);
             if (s) {
                 s.value = item.st;
                 s.className = 'select-status status-' + item.st;
-                document.getElementById(item.id.replace('-sel', '-obs')).value = item.obs || "";
+                const obs = document.getElementById(item.id.replace('-sel', '-obs'));
+                if (obs) obs.value = item.obs || "";
             }
         });
         document.getElementById('display-titulo').innerText = d.titulo || "Agenda Hospitalar";
@@ -163,5 +161,13 @@ function exportarImagem() {
         link.click();
     });
 }
+
+function openModal(t, txt) {
+    document.getElementById('modal-title').innerText = t;
+    document.getElementById('modal-text').innerText = txt;
+    document.getElementById('modal').style.display = 'block';
+}
+
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
 window.onload = () => { iniciarSeletores(); carregarAgendaSalva(); };
