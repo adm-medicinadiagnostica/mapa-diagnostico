@@ -28,6 +28,11 @@
         .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
         .nav-btn.active { background: var(--primary); color: white; border-left: 6px solid var(--teal); font-weight: 700; }
 
+        /* Rodapé da Sidebar para Botões de Sistema */
+        .sys-btn-container { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
+        .btn-sys { color: #f8fafc; opacity: 0.7; font-size: 0.8rem; padding: 12px 25px; }
+        .btn-sys:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+
         /* Content */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
@@ -83,13 +88,18 @@
             <div class="logo-box">VC</div>
             <span>MEDICINA DIAGNÓSTICA<br><small>HOSPITAL VERA CRUZ</small></span>
         </div>
-        <nav>
+        <nav style="flex: 1; display: flex; flex-direction: column;">
             <button onclick="showPage('dashboard')" class="nav-btn" id="nav-dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
             <button onclick="showPage('home')" class="nav-btn active" id="nav-home"><i class="fas fa-home"></i> Início</button>
             <button onclick="showPage('diagnostica')" class="nav-btn" id="nav-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
             <button onclick="showPage('intervencionista')" class="nav-btn" id="nav-intervencionista"><i class="fas fa-user-md"></i> Intervencionista</button>
             <button onclick="showPage('fluxos')" class="nav-btn" id="nav-fluxos"><i class="fas fa-sitemap"></i> Departamentos</button>
             <button onclick="showPage('agendas')" class="nav-btn" id="nav-agendas"><i class="fas fa-calendar-alt"></i> Parametrização</button>
+            
+            <div class="sys-btn-container">
+                <button onclick="goBack()" class="nav-btn btn-sys"><i class="fas fa-arrow-left"></i> Voltar</button>
+                <button onclick="location.reload()" class="nav-btn btn-sys"><i class="fas fa-sync-alt"></i> Atualizar Página</button>
+            </div>
         </nav>
     </aside>
 
@@ -179,33 +189,58 @@
 
     <script>
         let currentAgId = 'ag1';
+        let pageHistory = ['home']; // Pilha para gerenciar o botão voltar
         const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-        function showPage(p) {
+        function showPage(p, skipHistory = false) {
+            const currentActive = document.querySelector('.page.active');
+            
+            // Gerenciamento de Histórico
+            if (!skipHistory && currentActive && currentActive.id !== p) {
+                pageHistory.push(p);
+            }
+
             document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
             document.getElementById(p).classList.add('active');
+            
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             const btn = document.getElementById('nav-' + p);
             if(btn) btn.classList.add('active');
+            
             if (p === 'agendas') loadAg();
+        }
+
+        // Função do Botão Voltar
+        function goBack() {
+            if (pageHistory.length > 1) {
+                pageHistory.pop(); // Remove a página atual
+                const prevPage = pageHistory[pageHistory.length - 1]; // Pega a anterior
+                showPage(prevPage, true); // Exibe sem adicionar ao histórico de novo
+            } else {
+                showPage('home', true);
+            }
         }
 
         function init() {
             const m = document.getElementById('selMes');
-            months.forEach((name, i) => m.add(new Option(name, i)));
-            m.value = new Date().getMonth();
+            if(m) {
+                months.forEach((name, i) => m.add(new Option(name, i)));
+                m.value = new Date().getMonth();
+            }
 
             const tabs = document.getElementById('agTabs');
-            for (let i = 1; i <= 9; i++) {
-                let b = document.createElement('button');
-                b.className = `tab-btn ${i === 1 ? 'active' : ''}`;
-                b.id = `tab-ag${i}`;
-                b.innerText = `Agenda 0${i}`;
-                b.onclick = function() {
-                    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active'); currentAgId = `ag${i}`; loadAg();
-                };
-                tabs.appendChild(b);
+            if(tabs) {
+                for (let i = 1; i <= 9; i++) {
+                    let b = document.createElement('button');
+                    b.className = `tab-btn ${i === 1 ? 'active' : ''}`;
+                    b.id = `tab-ag${i}`;
+                    b.innerText = `Agenda 0${i}`;
+                    b.onclick = function() {
+                        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active'); currentAgId = `ag${i}`; loadAg();
+                    };
+                    tabs.appendChild(b);
+                }
             }
             gerarGrade();
         }
@@ -213,11 +248,15 @@
         function updateRoomName(val) {
             const name = val || `Agenda ${currentAgId.replace('ag', '0')}`;
             document.getElementById('displayRoomName').innerText = name;
-            document.getElementById(`tab-${currentAgId}`).innerText = name;
+            const tab = document.getElementById(`tab-${currentAgId}`);
+            if(tab) tab.innerText = name;
         }
 
         function gerarGrade() {
-            const slot = parseInt(document.getElementById('slotMin').value) || 20;
+            const slotInp = document.getElementById('slotMin');
+            if(!slotInp) return;
+            
+            const slot = parseInt(slotInp.value) || 20;
             const sT = document.getElementById('timeStart').value.split(':');
             const eT = document.getElementById('timeEnd').value.split(':');
             const startM = parseInt(sT[0])*60 + parseInt(sT[1]);
@@ -301,7 +340,9 @@
 
         function loadAg() {
             const mesIdx = document.getElementById('selMes').value;
-            document.getElementById('displayPeriod').innerText = `${months[mesIdx]} / 2026`;
+            const disp = document.getElementById('displayPeriod');
+            if(disp) disp.innerText = `${months[mesIdx]} / 2026`;
+            
             const key = `v28_${currentAgId}_${mesIdx}`;
             const s = localStorage.getItem(key);
             if(s) {
