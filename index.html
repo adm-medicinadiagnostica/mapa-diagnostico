@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Medicina Diagnóstica - Hospital Vera Cruz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -13,72 +13,74 @@
             --navy: #002d5c; --primary: #004a99; --teal: #00c2cb;
             --bg: #f4f7f9; --white: #ffffff; --text: #334e68;
             --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --radius: 16px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; }
+        body { display: flex; background: var(--bg); height: 100vh; overflow: hidden; color: var(--text); }
 
-        /* Sidebar Blindada */
-        .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); }
+        /* --- SIDEBAR --- */
+        .sidebar { width: 280px; background: var(--navy); color: white; display: flex; flex-direction: column; flex-shrink: 0; height: 100vh; z-index: 100; border-right: 1px solid rgba(255,255,255,0.1); overflow-y: auto; }
         .sidebar-header { padding: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: center; }
         .logo-box { width: 50px; height: 50px; background: var(--teal); color: var(--navy); font-weight: 800; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.2rem; }
-        .sidebar-header span { font-size: 0.85rem; font-weight: 700; line-height: 1.2; display: block; }
+        .nav-container { flex: 1; padding: 20px 15px; }
+        .nav-btn { width: 100%; background: transparent; border: none; color: #a0aec0; padding: 14px 20px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 15px; font-size: 0.85rem; border-radius: 10px; transition: 0.3s; margin-bottom: 5px; }
+        .nav-btn:hover, .nav-btn.active { color: white; background: var(--primary); }
+        .submenu { display: none; background: rgba(0,0,0,0.15); border-radius: 10px; margin-bottom: 10px; padding: 5px 0; }
+        .sub-btn { width: 100%; background: transparent; border: none; color: #a0aec0; padding: 10px 20px 10px 45px; text-align: left; cursor: pointer; font-size: 0.8rem; display: block; border-radius: 8px; transition: 0.2s; }
+        .sub-btn:hover { color: var(--teal); background: rgba(255,255,255,0.05); }
 
-        .nav-btn { width: 100%; background: transparent; border: none; color: #a0aec0; padding: 18px 25px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 15px; font-size: 0.9rem; transition: 0.3s; }
-        .nav-btn:hover { color: white; background: rgba(255,255,255,0.05); }
-        .nav-btn.active { background: var(--primary); color: white; border-left: 6px solid var(--teal); font-weight: 700; }
-
-        /* Rodapé da Sidebar para Botões de Sistema */
-        .sys-btn-container { margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
-        .btn-sys { color: #f8fafc; opacity: 0.7; font-size: 0.8rem; padding: 12px 25px; }
-        .btn-sys:hover { opacity: 1; background: rgba(255,255,255,0.1); }
-
-        /* Content */
+        /* --- MAIN CONTENT --- */
         .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Pesquisa */
-        .search-area { position: relative; max-width: 500px; margin-bottom: 30px; }
-        .search-area i { position: absolute; left: 15px; top: 13px; color: var(--primary); }
-        .search-area input { width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px; border: 1px solid #e2e8f0; box-shadow: var(--shadow); outline: none; font-size: 0.9rem; background: var(--white); }
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .search-wrapper { position: relative; width: 320px; }
+        .search-wrapper i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+        .search-bar { width: 100%; padding: 12px 15px 12px 48px; border-radius: 30px; border: 1px solid #e2e8f0; outline: none; box-shadow: var(--shadow); font-size: 0.85rem; transition: 0.3s; }
+        .btn-back { background: var(--white); border: 1px solid #e2e8f0; padding: 10px 18px; border-radius: 12px; cursor: pointer; color: var(--navy); font-weight: 700; font-size: 0.75rem; display: flex; align-items: center; gap: 8px; }
 
-        /* Cards Layout */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card-unit { background: white; border-radius: 20px; box-shadow: var(--shadow); border-top: 6px solid var(--primary); overflow: hidden; display: flex; flex-direction: column; }
-        .card-header { background: #f8fafc; padding: 15px; font-weight: 700; text-align: center; font-size: 0.8rem; border-bottom: 1px solid #eee; text-transform: uppercase; color: var(--navy); }
+        .card-unit { background: white; border-radius: var(--radius); box-shadow: var(--shadow); border-top: 5px solid var(--primary); overflow: hidden; }
+        .card-header { background: #f8fafc; padding: 15px; font-weight: 700; text-align: center; font-size: 0.8rem; text-transform: uppercase; color: var(--navy); border-bottom: 1px solid #f1f5f9; }
         .card-body { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
-        .card-body button { background: #f1f5f9; border: none; padding: 10px; border-radius: 10px; font-weight: 600; text-align: left; cursor: pointer; transition: 0.2s; font-size: 0.8rem; }
+        .card-body button { background: #f8fafc; border: 1px solid #f1f5f9; padding: 12px; border-radius: 12px; font-weight: 600; text-align: left; cursor: pointer; color: var(--text); transition: 0.2s; }
         .card-body button:hover { background: var(--primary); color: white; transform: translateX(5px); }
-        .teal-card { border-top-color: var(--teal); }
-        .gray-card { border-top-color: #64748b; }
 
-        /* Agenda UI */
-        #printArea { padding: 20px; background: var(--bg); border-radius: 20px; }
-        .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
-        .kpi-pill { padding: 12px 20px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.75rem; box-shadow: var(--shadow); }
-        .pill-green { background: #10b981; } .pill-blue { background: #3b82f6; } .pill-red { background: #ef4444; } .pill-orange { background: #f59e0b; } .pill-dark { background: #1e293b; }
+        .jornada-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .jornada-step { width: 100%; background: white; padding: 25px; border-radius: var(--radius); box-shadow: var(--shadow); border-left: 6px solid var(--teal); position: relative; }
+        .step-header-edit { font-family: 'Poppins'; color: var(--navy); font-weight: 700; font-size: 1.1rem; border: none; background: transparent; width: 100%; border-bottom: 2px solid #eee; margin-bottom: 10px; outline: none; }
+        .step-content-edit { width: 100%; min-height: 80px; padding: 10px; border: 1px solid #eee; border-radius: 10px; font-size: 0.9rem; outline: none; resize: none; color: var(--text); }
+        .step-arrow { color: var(--teal); font-size: 1.5rem; margin: 5px 0; }
 
         .agenda-system { display: flex; gap: 20px; align-items: flex-start; }
-        .ag-sidebar { width: 280px; background: white; border-radius: 25px; padding: 25px; box-shadow: var(--shadow); flex-shrink: 0; }
-        .tab-btn { width: 100%; padding: 10px; border: 1px solid #f1f5f9; border-radius: 10px; cursor: pointer; font-size: 0.8rem; font-weight: 700; background: white; text-align: left; margin-bottom: 5px; transition: 0.2s; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .ag-sidebar { width: 300px; background: white; border-radius: 25px; padding: 25px; box-shadow: var(--shadow); flex-shrink: 0; }
+        .ag-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 20px; }
+        .tab-btn { padding: 8px 5px; font-size: 0.65rem; font-weight: 700; border: 1px solid #eee; background: #f8fafc; cursor: pointer; border-radius: 8px; }
         .tab-btn.active { background: var(--primary); color: white; }
-        
-        .ag-field { margin-bottom: 12px; }
-        .ag-field label { font-size: 0.65rem; font-weight: 700; color: var(--primary); display: block; margin-bottom: 3px; }
-        .ag-field select, .ag-field input { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd; font-size: 0.8rem; }
-
-        .grade-wrapper { flex: 1; background: white; border-radius: 20px; padding: 25px; box-shadow: var(--shadow); border: 1px solid #f1f5f9; }
-        .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; }
+        .kpi-row { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .kpi-pill { padding: 10px 15px; border-radius: 50px; color: white; font-weight: 700; font-size: 0.65rem; box-shadow: var(--shadow); min-width: 100px; text-align: center; }
+        .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; background: white; border-radius: 15px; overflow: hidden; }
         .grade-table th { background: var(--navy); color: white; padding: 12px; }
-        .grade-table td { border: 1px solid #f1f5f9; padding: 4px; text-align: center; }
-        .total-row { background: #f8fafc; font-weight: 800; color: var(--primary); border-top: 2px solid #ddd; }
-        
-        .s-inp { width: 100%; border: none; background: transparent; font-size: 0.65rem; font-weight: 600; cursor: pointer; text-align: center; }
-        .especifico-input { width: 100%; border: 1px solid #ddd; border-radius: 4px; font-size: 0.6rem; margin-top: 3px; display: none; padding: 2px; }
+        .grade-table td { border: 1px solid #f1f5f9; padding: 5px; text-align: center; }
+        .s-inp { width: 100%; border: 1px solid #eee; font-size: 0.65rem; font-weight: 600; cursor: pointer; border-radius: 4px; }
+        .d-notes { width: 100%; border: none; font-size: 0.6rem; margin-top: 3px; display: none; text-align: center; border-radius: 3px; background: rgba(255,255,255,0.5); }
 
-        .footer-version { position: fixed; bottom: 20px; right: 40px; font-size: 0.75rem; color: #cbd5e1; font-weight: 800; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 45, 92, 0.4); backdrop-filter: blur(6px); }
+        .modal-content { background: white; margin: 2% auto; width: 900px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; }
+        .modal-header { background: var(--navy); color: white; padding: 25px 30px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .modal-body { padding: 35px; max-height: 80vh; overflow-y: auto; }
+        .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; background: #f8fafc; padding: 25px; border-radius: 18px; margin-bottom: 30px; }
+        .field-group { display: flex; flex-direction: column; gap: 6px; }
+        .field-group label { font-size: 0.7rem; font-weight: 700; color: var(--navy); opacity: 0.8; text-transform: uppercase; }
+        .field-group input, .field-group select { padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 0.85rem; outline: none; }
+        .staff-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 20px; }
+        .staff-table th { text-align: left; padding: 15px 20px; background: #f8fafc; border-bottom: 2px solid #f1f5f9; color: var(--navy); }
+        .staff-table td { padding: 15px 20px; border-bottom: 1px solid #f1f5f9; }
+
+        .footer-version { position: fixed; bottom: 15px; right: 30px; font-size: 0.7rem; color: #cbd5e1; font-weight: 800; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -88,308 +90,276 @@
             <div class="logo-box">VC</div>
             <span>MEDICINA DIAGNÓSTICA<br><small>HOSPITAL VERA CRUZ</small></span>
         </div>
-        <nav style="flex: 1; display: flex; flex-direction: column;">
-            <button onclick="showPage('dashboard')" class="nav-btn" id="nav-dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
+        <div class="nav-container">
             <button onclick="showPage('home')" class="nav-btn active" id="nav-home"><i class="fas fa-home"></i> Início</button>
             <button onclick="showPage('diagnostica')" class="nav-btn" id="nav-diagnostica"><i class="fas fa-microscope"></i> Diagnóstica</button>
-            <button onclick="showPage('intervencionista')" class="nav-btn" id="nav-intervencionista"><i class="fas fa-user-md"></i> Intervencionista</button>
+            <button onclick="showPage('intervencionista')" class="nav-btn" id="nav-intervencionista"><i class="fas fa-syringe"></i> Intervencionista</button>
+            <button onclick="showPage('procedimentos')" class="nav-btn" id="nav-procedimentos"><i class="fas fa-user-md"></i> Procedimentos Intervencionista</button>
+            <button onclick="toggleSubmenu('sub-jornada')" class="nav-btn" id="nav-jornada-menu"><i class="fas fa-route"></i> Jornada do Paciente <i class="fas fa-chevron-down" style="margin-left:auto"></i></button>
+            <div class="submenu" id="sub-jornada">
+                <button onclick="loadJornada('Superficial')" class="sub-btn">Superficial</button>
+                <button onclick="loadJornada('Profundo')" class="sub-btn">Profundo</button>
+                <button onclick="loadJornada('Mama')" class="sub-btn">Mama</button>
+                <button onclick="loadJornada('Próstata')" class="sub-btn">Próstata</button>
+            </div>
             <button onclick="showPage('fluxos')" class="nav-btn" id="nav-fluxos"><i class="fas fa-sitemap"></i> Departamentos</button>
             <button onclick="showPage('agendas')" class="nav-btn" id="nav-agendas"><i class="fas fa-calendar-alt"></i> Parametrização</button>
-            
-            <div class="sys-btn-container">
-                <button onclick="goBack()" class="nav-btn btn-sys"><i class="fas fa-arrow-left"></i> Voltar</button>
-                <button onclick="location.reload()" class="nav-btn btn-sys"><i class="fas fa-sync-alt"></i> Atualizar Página</button>
-            </div>
-        </nav>
+        </div>
     </aside>
 
     <main class="main-content">
         <section id="home" class="page active">
-            <h1 style="font-size: 3rem; color: var(--primary); font-family: 'Poppins';">Portal de Consulta de Fluxos</h1>
-            <p style="margin-bottom: 40px; color: var(--text);">Gestão Administrativa Medicina Diagnóstica Vera Cruz</p>
-            <div class="grid-layout">
-                <div class="card-unit" style="padding:40px; text-align:center; cursor:pointer;" onclick="showPage('diagnostica')">
-                    <i class="fas fa-file-medical" style="font-size:3rem; color:var(--primary); margin-bottom: 20px;"></i>
-                    <h2>Medicina Diagnóstica</h2>
-                </div>
-                <div class="card-unit" style="padding:40px; text-align:center; cursor:pointer;" onclick="showPage('intervencionista')">
-                    <i class="fas fa-syringe" style="font-size:3rem; color:var(--teal); margin-bottom: 20px;"></i>
-                    <h2>Medicina Intervencionista</h2>
-                </div>
-            </div>
+            <h1 style="font-size: 2.8rem; color: var(--navy); font-family: 'Poppins'; font-weight: 700;">Portal Vera Cruz</h1>
+            <p>Gerenciamento de Unidades de Negócio e Processos Assistenciais.</p>
         </section>
 
         <section id="diagnostica" class="page">
-            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Filtrar exames..." onkeyup="filterCards(this, 'grid-diag')"></div>
+            <div class="page-header"><button class="btn-back" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button><div class="search-wrapper"><i class="fas fa-search"></i><input type="text" class="search-bar" placeholder="Filtrar Diagnóstica..." onkeyup="filterCards(this, 'grid-diag')"></div></div>
             <div class="grid-layout" id="grid-diag">
-                <div class="card-unit"><div class="card-header">ANESTESIA</div><div class="card-body"><button>Anestesia para exame de Ultrassom</button><button>Anestesia para exame de Tomografia</button><button>Anestesia para exame de Ressonancia Magnética</button></div></div>
-                <div class="card-unit"><div class="card-header">DENSITOMETRIA</div><div class="card-body"><button>VFL</button><button>Corpo Inteiro</button><button>Um Segmento</button><button>Dois Seguimentos</button></div></div>
-                <div class="card-unit"><div class="card-header">MAMOGRAFIA</div><div class="card-body"><button>Mamografia Digital</button><button>Tomossíntese Mamaria</button><button>Mama Ampliação</button></div></div>
-                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button>Abdome</button><button>Coluna</button><button>Crânio</button><button>Membro Inferior</button><button>Membro Superior</button><button>Outros Exames</button><button>Tórax</button><button>Contrastados</button></div></div>
-                <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body"><button>Cardio</button><button>Coluna</button><button>Fetal</button><button>Mama</button><button>Medicina Interna</button><button>Músculo</button><button>Neuro</button></div></div>
-                <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body"><button>Cardio</button><button>Coluna</button><button>Medicina Interna</button><button>Músculo</button><button>Neuro</button></div></div>
-                <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body"><button>US Doppler</button><button>US Geral</button><button>US Mama</button><button>US Músculo</button><button>US Obstétrico</button></div></div>
+                <div class="card-unit">
+                    <div class="card-header">ANESTESIA</div>
+                    <div class="card-body">
+                        <button onclick="openTussEditor('Anestesia RM')">Anestesia para exame de Ressonância Magnética</button>
+                        <button onclick="openTussEditor('Anestesia TC')">Anestesia para exame de Tomografia</button>
+                        <button onclick="openTussEditor('Anestesia US')">Anestesia para exame de Ultrassom</button>
+                    </div>
+                </div>
+                <div class="card-unit"><div class="card-header">DENSITOMETRIA</div><div class="card-body"><button onclick="openTussEditor('Avaliação VFL')">Avaliação VFL</button><button onclick="openTussEditor('Densi Corpo Inteiro')">Corpo Inteiro</button><button onclick="openTussEditor('Densi Um Segmento')">Um Segmento</button><button onclick="openTussEditor('Densi Dois Segmentos')">Dois Segmentos</button></div></div>
+                <div class="card-unit"><div class="card-header">MAMOGRAFIA</div><div class="card-body"><button onclick="openTussEditor('Mamografia Digital')">Mamografia Digital</button><button onclick="openTussEditor('Tomossíntese Mamária')">Tomossíntese Mamária</button><button onclick="openTussEditor('Mama Ampliação')">Mama Ampliação</button></div></div>
+                <div class="card-unit"><div class="card-header">RAIO X</div><div class="card-body"><button onclick="openTussEditor('RX Abdome')">Abdome</button><button onclick="openTussEditor('RX Coluna')">Coluna</button><button onclick="openTussEditor('RX Contrastados')">Contrastados</button><button onclick="openTussEditor('RX Crânio')">Crânio</button><button onclick="openTussEditor('RX Membro Inferior')">Membro Inferior</button><button onclick="openTussEditor('RX Membro Superior')">Membro Superior</button><button onclick="openTussEditor('RX Outros')">Outros Exames</button><button onclick="openTussEditor('RX Tórax')">Tórax</button></div></div>
+                <div class="card-unit"><div class="card-header">RESSONÂNCIA MAGNÉTICA</div><div class="card-body"><button onclick="openTussEditor('RM Cardio')">Cardio</button><button onclick="openTussEditor('RM Coluna')">Coluna</button><button onclick="openTussEditor('RM Fetal')">Fetal</button><button onclick="openTussEditor('RM Mama')">Mama</button><button onclick="openTussEditor('RM Medicina Interna')">Medicina Interna</button><button onclick="openTussEditor('RM Músculo')">Músculo</button><button onclick="openTussEditor('RM Neuro')">Neuro</button></div></div>
+                <div class="card-unit"><div class="card-header">TOMOGRAFIA</div><div class="card-body"><button onclick="openTussEditor('TC Cardio')">Cardio</button><button onclick="openTussEditor('TC Coluna')">Coluna</button><button onclick="openTussEditor('TC Medicina Interna')">Medicina Interna</button><button onclick="openTussEditor('TC Músculo')">Músculo</button><button onclick="openTussEditor('TC Neuro')">Neuro</button></div></div>
+                <div class="card-unit"><div class="card-header">ULTRASSONOGRAFIA</div><div class="card-body"><button onclick="openTussEditor('US Doppler')">US Doppler</button><button onclick="openTussEditor('US Geral')">US Geral</button><button onclick="openTussEditor('US Mama')">US Mama</button><button onclick="openTussEditor('US Músculo')">US Músculo</button><button onclick="openTussEditor('US Obstétrico')">US Obstétrico</button></div></div>
             </div>
         </section>
 
         <section id="intervencionista" class="page">
-            <div class="search-area"><i class="fas fa-search"></i><input type="text" placeholder="Filtrar procedimentos..." onkeyup="filterCards(this, 'grid-inter')"></div>
-            <div class="grid-layout" id="grid-inter">
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO SUPERFICIAL</div><div class="card-body"><button>Paaf Superficial</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO PROFUNDO</div><div class="card-body"><button>Ablação</button><button>Biópsia</button><button>Centeses</button><button>Colangiografia</button><button>Drenagem</button><button>Nefrostomia</button><button>Paaf Profundo</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO EM MAMA</div><div class="card-body"><button>Core Biopsy</button><button>Mamotomia</button><button>Marcação</button><button>Paaf em Mama</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">PROECEIMENTO EM PRÓSTATA</div><div class="card-body"><button>Transretal Simples</button><button>Transretal com Fusão</button><button>Transperineal Particular</button><button>Taxa de Fusão Biópsia</button></div></div>
-                <div class="card-unit teal-card"><div class="card-header">PROCEDIMENTO DIVERSOS</div><div class="card-body"><button>Anestesia</button><button>Artro RM</button><button>Consulta</button><button>Dacrio</button></div></div>
+            <div class="page-header"><button class="btn-back" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button></div>
+            <div class="grid-layout">
+                <div class="card-unit" style="border-top-color:var(--teal)"><div class="card-header">SUPERFICIAL</div><div class="card-body"><button onclick="openTussEditor('Paaf Tireóide')">Paaf Tireóide</button><button onclick="openTussEditor('Paaf Linfonodo')">Paaf Linfonodo</button><button onclick="openTussEditor('Paaf Glandula Salivar')">Paaf Glandula Salivar</button></div></div>
+                <div class="card-unit" style="border-top-color:var(--teal)"><div class="card-header">PROFUNDO</div><div class="card-body"><button onclick="openTussEditor('Ablação Profundo')">Ablação</button><button onclick="openTussEditor('Biópsia Profundo')">Biópsia</button><button onclick="openTussEditor('Colangiografia Profundo')">Colangiografia</button><button onclick="openTussEditor('Drenagem Profundo')">Drenagem</button><button onclick="openTussEditor('Nefrostomia Profundo')">Nefrostomia</button><button onclick="openTussEditor('Paaf Profundo')">Paaf Profundo</button><button onclick="openTussEditor('Centeses Profundo')">Centeses</button></div></div>
+                <div class="card-unit" style="border-top-color:var(--teal)"><div class="card-header">MAMA</div><div class="card-body"><button onclick="openTussEditor('Core Biopsy Mama')">Core Biopsy</button><button onclick="openTussEditor('Mamotomia Mama')">Mamotomia</button><button onclick="openTussEditor('Marcação Mama')">Marcação</button><button onclick="openTussEditor('Paaf em Mama')">Paaf em Mama</button></div></div>
+                <div class="card-unit" style="border-top-color:var(--teal)"><div class="card-header">PRÓSTATA</div><div class="card-body"><button onclick="openTussEditor('Transretal Simples')">Transretal Simples</button><button onclick="openTussEditor('Transretal com fusão')">Transretal com fusão</button><button onclick="openTussEditor('Transperineal Particular')">Transperineal Particular</button><button onclick="openTussEditor('Transperineal com Fusão')">Transperineal com Fusão</button><button onclick="openTussEditor('Taxa Biópsia Fusão')">Taxa de biópsia de Fusão</button></div></div>
+                <div class="card-unit" style="border-top-color:var(--teal)"><div class="card-header">DIVERSOS</div><div class="card-body"><button onclick="openTussEditor('Anestesias Intervencionista')">Anestesias para procedimento</button><button onclick="openTussEditor('Artro RM Intervencionista')">Artro RM</button><button onclick="openTussEditor('Consulta Intervencionista')">Consulta Intervencionista</button><button onclick="openTussEditor('Dacrio Intervencionista')">Dacrio</button></div></div>
             </div>
         </section>
 
+        <section id="procedimentos" class="page">
+            <div class="page-header"><button class="btn-back" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button><div class="search-wrapper"><i class="fas fa-search"></i><input type="text" class="search-bar" placeholder="Filtrar catálogo técnico..." onkeyup="filterCards(this, 'grid-proc-main')"></div></div>
+            <div class="grid-layout" id="grid-proc-main">
+                <div class="card-unit"><div class="card-header">SUPERFICIAL</div><div class="card-body"><button onclick="openTussEditor('Técnico Paaf Tireóide')">Paaf Tireóide</button><button onclick="openTussEditor('Técnico Paaf Linfonodo')">Paaf Linfonodo</button><button onclick="openTussEditor('Técnico Paaf Glandula Salivar')">Paaf Glandula Salivar</button></div></div>
+                <div class="card-unit"><div class="card-header">PROFUNDO</div><div class="card-body"><button onclick="openTussEditor('Técnico Ablação')">Ablação</button><button onclick="openTussEditor('Técnico Biópsia')">Biópsia</button><button onclick="openTussEditor('Técnico Colangiografia')">Colangiografia</button><button onclick="openTussEditor('Técnico Drenagem')">Drenagem</button><button onclick="openTussEditor('Técnico Nefrostomia')">Nefrostomia</button><button onclick="openTussEditor('Técnico Paracentese')">Paracentese</button><button onclick="openTussEditor('Técnico Toracocentese')">Toracocentese</button></div></div>
+                <div class="card-unit"><div class="card-header">MAMA</div><div class="card-body"><button onclick="openTussEditor('Técnico Core Biópsia US')">Core Biópsia em Mama US</button><button onclick="openTussEditor('Técnico Mamotomia RM')">Mamotomia RM</button><button onclick="openTussEditor('Técnico Mamotomia ES')">Mamotomia ES</button><button onclick="openTussEditor('Técnico Mamotomia US')">Mamotomia US</button><button onclick="openTussEditor('Técnico Marcação US')">Marcação em Mama por US</button><button onclick="openTussEditor('Técnico Marcação ES')">Marcação em Mama por ES</button></div></div>
+                <div class="card-unit"><div class="card-header">PRÓSTATA</div><div class="card-body"><button onclick="openTussEditor('Técnico Biópsia Próstata')">Biópsia em Próstata</button><button onclick="openTussEditor('Técnico Transretal Simples')">Transretal Simples</button><button onclick="openTussEditor('Técnico Transretal Fusão')">Transretal com Fusão</button><button onclick="openTussEditor('Técnico Transperineal')">Transperineal</button><button onclick="openTussEditor('Técnico Transperineal Fusão')">Transperineal com Fusão</button></div></div>
+                <div class="card-unit"><div class="card-header">DIVERSOS</div><div class="card-body"><button onclick="openTussEditor('Técnico Artro RM')">Artro RM</button><button onclick="openTussEditor('Técnico Artro TC')">Artro TC</button><button onclick="openTussEditor('Técnico Dacrio')">Dacrio</button></div></div>
+            </div>
+        </section>
+
+        <section id="jornada-page" class="page">
+            <div class="page-header"><button class="btn-back" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button></div>
+            <h1 id="jornada-title" style="text-align:center; color:var(--navy); margin-bottom:30px; font-family:'Poppins'">Jornada</h1>
+            <div class="jornada-container" id="j-builder"></div>
+            <div style="text-align:center; margin-top:30px;"><button onclick="addJStep()" style="padding:12px 25px; background:var(--teal); border:none; border-radius:10px; font-weight:700; cursor:pointer;">+ Nova Etapa</button><button onclick="saveJData()" style="padding:12px 25px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:700; cursor:pointer; margin-left:10px;">Salvar Fluxo</button></div>
+        </section>
+
         <section id="fluxos" class="page">
+            <div class="page-header"><button class="btn-back" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Voltar</button></div>
             <div class="grid-layout">
-                <div class="card-unit gray-card"><div class="card-header">ATENDIMENTO</div><div class="card-body"><button>Call Center</button><button>Central de Laudos</button><button>Recepção</button></div></div>
-                <div class="card-unit gray-card"><div class="card-header">ASSISTENCIAL</div><div class="card-body"><button>Enfermagem</button><button>Técnico de Radiologia</button></div></div>
-                <div class="card-unit gray-card"><div class="card-header">MÉDICO</div><div class="card-body"><button>Médico Radiologista</button></div></div>
+                <div class="card-unit" style="border-top-color:#64748b;"><div class="card-header">ATENDIMENTO</div><div class="card-body"><button onclick="openDeptModal('Call Center')">Call Center</button><button onclick="openDeptModal('Recepção')">Recepção</button></div></div>
+                <div class="card-unit" style="border-top-color:#64748b;"><div class="card-header">ASSISTENCIAL</div><div class="card-body"><button onclick="openDeptModal('Enfermagem')">Enfermagem</button><button onclick="openDeptModal('Técnicos')">Técnicos de Radiologia</button></div></div>
             </div>
         </section>
 
         <section id="agendas" class="page">
             <div class="agenda-system">
-                <div class="ag-sidebar" data-html2canvas-ignore="true">
-                    <div id="agTabs" class="ag-tabs"></div>
-                    <div class="ag-field"><label>Mês:</label><select id="selMes" onchange="loadAg()"></select></div>
-                    <div class="ag-field"><label>Hora Início:</label><input type="time" id="timeStart" value="06:00" onchange="gerarGrade()"></div>
-                    <div class="ag-field"><label>Hora Término:</label><input type="time" id="timeEnd" value="23:00" onchange="gerarGrade()"></div>
-                    <div class="ag-field"><label>Slot (min):</label><input type="number" id="slotMin" value="20" oninput="gerarGrade()"></div>
-                    <div class="ag-field"><label>Identificação da Sala:</label><input type="text" id="renameAg" placeholder="Ex: RM Sala 1" oninput="updateRoomName(this.value)"></div>
-                    <button onclick="saveAg()" style="width:100%; padding:12px; margin-top:10px; background:var(--primary); color:white; border:none; border-radius:10px; cursor:pointer; font-weight:700;">Gravar Mês</button>
-                    <button onclick="exportPNG()" style="width:100%; padding:12px; margin-top:10px; background:var(--navy); color:white; border:none; border-radius:10px; cursor:pointer;"><i class="fas fa-camera"></i> Exportar PNG</button>
-                    <button onclick="applyBulk()" style="width:100%; padding:10px; margin-top:10px; background:var(--teal); border:none; border-radius:10px; cursor:pointer;">Preencher Eletivo</button>
+                <div class="ag-sidebar">
+                    <div class="ag-tabs"><script>for(let i=1;i<=9;i++) document.write(`<button class="tab-btn ${i===1?'active':''}" id="tab-${i}" onclick="changeAgenda(${i},this)">Ag 0${i}</button>`);</script></div>
+                    <div class="ag-field" style="margin-top:15px;"><label style="font-size:0.7rem; font-weight:800; color:var(--navy)">SALA</label><input type="text" id="renameAg" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" oninput="updateRoomName(this.value)"></div>
+                    
+                    <div class="ag-field"><label>INÍCIO</label><input type="time" id="timeStart" value="06:00" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" onchange="gerarGrade()"></div>
+                    <div class="ag-field"><label>FIM</label><input type="time" id="timeEnd" value="23:00" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" onchange="gerarGrade()"></div>
+                    
+                    <div class="ag-field"><label>SLOT (Minutos)</label><input type="number" id="slotMin" value="20" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" oninput="gerarGrade()"></div>
+                    <button onclick="saveAllAgendas()" style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; margin-top:10px;">Gravar Mês</button>
                 </div>
-
-                <div id="printArea">
+                <div id="printArea" style="flex:1;">
                     <div class="kpi-row">
-                        <div class="kpi-pill pill-green">Eletivo + Específico: <span id="kpiEl">0</span></div>
-                        <div class="kpi-pill pill-blue">Internado + PS: <span id="kpiUr">0</span></div>
-                        <div class="kpi-pill pill-red">Manutenção: <span id="kpiMa">0</span></div>
-                        <div class="kpi-pill pill-orange">Respiros: <span id="kpiRe">0</span></div>
-                        <div class="kpi-pill pill-dark">Total Mensal: <span id="kpiTo">0</span></div>
+                        <div class="kpi-pill" style="background:#10b981;">Eletivo: <span id="k_el">0</span></div>
+                        <div class="kpi-pill" style="background:#ef4444;">PS: <span id="k_ps">0</span></div>
+                        <div class="kpi-pill" style="background:#3b82f6;">Internado: <span id="k_in">0</span></div>
+                        <div class="kpi-pill" style="background:#6366f1;">Respiro: <span id="k_re">0</span></div>
+                        <div class="kpi-pill" style="background:var(--navy);">Total: <span id="k_to">0</span></div>
                     </div>
-                    <div class="grade-wrapper">
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <h2 id="displayRoomName" style="color: var(--navy); text-transform: uppercase;">Agenda</h2>
-                            <p id="displayPeriod" style="font-weight: 700; color: var(--text);"></p>
-                        </div>
-                        <div id="gradeDiv"></div>
-                    </div>
+                    <div style="background:white; padding:25px; border-radius:20px; box-shadow:var(--shadow);"><h2 id="displayRoomName" style="text-align:center; color:var(--navy); margin-bottom:15px; text-transform:uppercase;">AGENDA 01</h2><div id="gradeDiv"></div></div>
                 </div>
             </div>
         </section>
-
-        <footer class="footer-version">Versão 28.0 - Hospital Vera Cruz</footer>
     </main>
 
+    <div id="modalTuss" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><span id="tussTitle">Registro</span><button onclick="closeModalTuss()" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field-group" style="grid-column: span 3;"><label>Médico Radiologista</label><input type="text" id="t_medico"></div>
+                    <div class="field-group"><label>Código TUSS</label><input type="text" id="t_codigo"></div>
+                    <div class="field-group" style="grid-column: span 2;"><label>Procedimento</label><input type="text" id="t_procedimento"></div>
+                </div>
+                <button onclick="addTussRecord()" style="width:100%; padding:14px; background:var(--teal); color:var(--navy); border:none; border-radius:12px; font-weight:700; cursor:pointer;">Gravar Registro</button>
+                <table class="staff-table"><thead><tr><th>Médico</th><th>Código</th><th>Procedimento</th><th>Ações</th></tr></thead><tbody id="tussListBody"></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalStaff" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><span id="deptStaffTitle">Gestão</span><button onclick="closeDeptModal()" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button></div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field-group"><label>Nome</label><input type="text" id="s_nome"></div>
+                    <div class="field-group"><label>Cargo</label><input type="text" id="s_cargo"></div>
+                    <div class="field-group"><label>Unidade</label><select id="s_unidade"><option>Unidade Hospital Vera Cruz</option><option>Unidade Castelo</option><option>Unidade Casarão</option><option>Unidade CMD</option><option>Unidade Norte Sul</option></select></div>
+                </div>
+                <button onclick="addStaff()" style="width:100%; padding:12px; background:var(--teal); border:none; border-radius:12px; font-weight:700;">+ Adicionar</button>
+                <table class="staff-table"><thead><tr><th>Nome</th><th>Cargo</th><th>Ações</th></tr></thead><tbody id="staffListBody"></tbody></table>
+                <hr style="margin:20px 0; opacity:0.1;">
+                <input type="file" id="filePng" accept="image/png" style="display:none" onchange="previewPng(this)">
+                <button onclick="document.getElementById('filePng').click()" style="width:100%; padding:15px; border:2px dashed var(--primary); background:transparent; color:var(--primary); font-weight:700; border-radius:12px; cursor:pointer;">Anexar PNG (Fluxos)</button>
+                <img id="imgPreview" style="max-width:100%; margin-top:15px; display:none; border-radius:15px;">
+            </div>
+        </div>
+    </div>
+
     <script>
-        let currentAgId = 'ag1';
-        let pageHistory = ['home']; // Pilha para gerenciar o botão voltar
-        const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        let currentId = "", currentDept = "", currentAgIndex = 1, currentJ = "";
+        let agendasMaster = JSON.parse(localStorage.getItem('vc_ag_final')) || {};
+        const colors = { 'Eletivo': '#dcfce7', 'PS': '#fee2e2', 'Internado': '#dbeafe', 'Bloqueado': '#f1f5f9', 'Respiro': '#e0e7ff', 'Exame Especifico': '#fef9c3' };
 
-        function showPage(p, skipHistory = false) {
-            const currentActive = document.querySelector('.page.active');
-            
-            // Gerenciamento de Histórico
-            if (!skipHistory && currentActive && currentActive.id !== p) {
-                pageHistory.push(p);
-            }
-
+        function showPage(p) {
             document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
             document.getElementById(p).classList.add('active');
-            
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            const btn = document.getElementById('nav-' + p);
-            if(btn) btn.classList.add('active');
-            
-            if (p === 'agendas') loadAg();
+            const btn = document.getElementById('nav-' + p); if(btn) btn.classList.add('active');
         }
 
-        // Função do Botão Voltar
-        function goBack() {
-            if (pageHistory.length > 1) {
-                pageHistory.pop(); // Remove a página atual
-                const prevPage = pageHistory[pageHistory.length - 1]; // Pega a anterior
-                showPage(prevPage, true); // Exibe sem adicionar ao histórico de novo
-            } else {
-                showPage('home', true);
-            }
+        function toggleSubmenu(id) { const s = document.getElementById(id); s.style.display = (s.style.display === 'block' ? 'none' : 'block'); }
+        function filterCards(inp, gridId) {
+            const val = inp.value.toLowerCase();
+            const items = document.getElementById(gridId).querySelectorAll('button, .card-unit');
+            items.forEach(it => it.style.display = it.innerText.toLowerCase().includes(val) ? "" : "none");
         }
 
-        function init() {
-            const m = document.getElementById('selMes');
-            if(m) {
-                months.forEach((name, i) => m.add(new Option(name, i)));
-                m.value = new Date().getMonth();
-            }
+        function openTussEditor(id) { currentId = id; document.getElementById('tussTitle').innerText = id; renderTussList(); document.getElementById('modalTuss').style.display = 'block'; }
+        function addTussRecord() {
+            const med = document.getElementById('t_medico').value, cod = document.getElementById('t_codigo').value, proc = document.getElementById('t_procedimento').value;
+            if(!med || !cod) return alert("Preencha!");
+            let list = JSON.parse(localStorage.getItem('t_rec_' + currentId)) || [];
+            list.push({ med, cod, proc }); localStorage.setItem('t_rec_' + currentId, JSON.stringify(list));
+            renderTussList(); document.querySelectorAll('.form-grid input').forEach(i => i.value = "");
+        }
+        function renderTussList() {
+            const body = document.getElementById('tussListBody'); body.innerHTML = "";
+            const list = JSON.parse(localStorage.getItem('t_rec_' + currentId)) || [];
+            list.forEach((r, i) => { body.innerHTML += `<tr><td>${r.med}</td><td>${r.cod}</td><td><i class="fas fa-trash" style="color:red; cursor:pointer" onclick="deleteTuss(${i})"></i></td></tr>`; });
+        }
+        function deleteTuss(i) { let list = JSON.parse(localStorage.getItem('t_rec_' + currentId)); list.splice(i, 1); localStorage.setItem('t_rec_' + currentId, JSON.stringify(list)); renderTussList(); }
+        function closeModalTuss() { document.getElementById('modalTuss').style.display = 'none'; }
 
-            const tabs = document.getElementById('agTabs');
-            if(tabs) {
-                for (let i = 1; i <= 9; i++) {
-                    let b = document.createElement('button');
-                    b.className = `tab-btn ${i === 1 ? 'active' : ''}`;
-                    b.id = `tab-ag${i}`;
-                    b.innerText = `Agenda 0${i}`;
-                    b.onclick = function() {
-                        document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-                        this.classList.add('active'); currentAgId = `ag${i}`; loadAg();
-                    };
-                    tabs.appendChild(b);
-                }
-            }
+        function openDeptModal(dept) { currentDept = dept; document.getElementById('deptStaffTitle').innerText = dept; renderStaff(); document.getElementById('modalStaff').style.display = 'block'; }
+        function addStaff() {
+            const n = document.getElementById('s_nome').value, c = document.getElementById('s_cargo').value;
+            if(!n) return; let list = JSON.parse(localStorage.getItem('s_rec_' + currentDept)) || [];
+            list.push({ n, c }); localStorage.setItem('s_rec_' + currentDept, JSON.stringify(list)); renderStaff();
+        }
+        function renderStaff() {
+            const body = document.getElementById('staffListBody'); body.innerHTML = "";
+            const list = JSON.parse(localStorage.getItem('s_rec_' + currentDept)) || [];
+            list.forEach((p, i) => body.innerHTML += `<tr><td>${p.n}</td><td>${p.c}</td><td><i class="fas fa-trash" onclick="deleteStaff(${i})"></i></td></tr>`);
+        }
+        function deleteStaff(i) { let list = JSON.parse(localStorage.getItem('s_rec_' + currentDept)); list.splice(i,1); localStorage.setItem('s_rec_' + currentDept, JSON.stringify(list)); renderStaff(); }
+        function previewPng(input) { if (input.files && input.files[0]) { const r = new FileReader(); r.onload = e => { const img = document.getElementById('imgPreview'); img.src = e.target.result; img.style.display = "block"; }; r.readAsDataURL(input.files[0]); } }
+        function closeDeptModal() { document.getElementById('modalStaff').style.display = 'none'; }
+
+        function loadJornada(type) {
+            currentJ = type;
+            const container = document.getElementById('j-builder');
+            container.innerHTML = "";
+            document.getElementById('jornada-title').innerText = "Jornada: " + type;
+            const saved = JSON.parse(localStorage.getItem('jornada_' + type)) || [{h: "Etapa Inicial", d: "Descrição..."}];
+            saved.forEach((step, idx) => {
+                if(idx > 0) container.innerHTML += '<div class="step-arrow"><i class="fas fa-chevron-down"></i></div>';
+                container.innerHTML += `<div class="jornada-step"><input class="step-header-edit" value="${step.h}"><textarea class="step-content-edit">${step.d}</textarea></div>`;
+            });
+            showPage('jornada-page');
+        }
+        function addJStep() {
+            const container = document.getElementById('j-builder');
+            if(container.children.length > 0) container.innerHTML += '<div class="step-arrow"><i class="fas fa-chevron-down"></i></div>';
+            container.innerHTML += `<div class="jornada-step"><input class="step-header-edit" placeholder="Etapa"><textarea class="step-content-edit" placeholder="Descrição..."></textarea></div>`;
+        }
+        function saveJData() {
+            const res = []; document.querySelectorAll('.jornada-step').forEach(s => { res.push({ h: s.querySelector('.step-header-edit').value, d: s.querySelector('.step-content-edit').value }); });
+            localStorage.setItem('jornada_' + currentJ, JSON.stringify(res)); alert("Jornada Salva!");
+        }
+
+        /* --- LÓGICA DE AGENDA ATUALIZADA --- */
+        function changeAgenda(idx, btn) {
+            saveCurrentAgSettings(); currentAgIndex = idx;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+            const d = agendasMaster[idx] || { name: `AGENDA 0${idx}`, start: "06:00", end: "23:00", slot: 20 };
+            document.getElementById('displayRoomName').innerText = d.name; document.getElementById('renameAg').value = d.name.includes("AGENDA") ? "" : d.name;
+            document.getElementById('timeStart').value = d.start; 
+            document.getElementById('timeEnd').value = d.end || "23:00"; 
+            document.getElementById('slotMin').value = d.slot;
             gerarGrade();
         }
-
-        function updateRoomName(val) {
-            const name = val || `Agenda ${currentAgId.replace('ag', '0')}`;
-            document.getElementById('displayRoomName').innerText = name;
-            const tab = document.getElementById(`tab-${currentAgId}`);
-            if(tab) tab.innerText = name;
+        function saveCurrentAgSettings() { 
+            agendasMaster[currentAgIndex] = { 
+                name: document.getElementById('displayRoomName').innerText, 
+                start: document.getElementById('timeStart').value, 
+                end: document.getElementById('timeEnd').value,
+                slot: document.getElementById('slotMin').value 
+            }; 
         }
-
         function gerarGrade() {
-            const slotInp = document.getElementById('slotMin');
-            if(!slotInp) return;
-            
-            const slot = parseInt(slotInp.value) || 20;
-            const sT = document.getElementById('timeStart').value.split(':');
-            const eT = document.getElementById('timeEnd').value.split(':');
-            const startM = parseInt(sT[0])*60 + parseInt(sT[1]);
-            const endM = parseInt(eT[0])*60 + parseInt(eT[1]);
-            
-            const cont = document.getElementById('gradeDiv');
-            const dias = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-            let html = `<table class="grade-table"><thead><tr><th>Hora</th>`;
-            dias.forEach(d => html += `<th>${d}</th>`);
-            html += `</tr></thead><tbody>`;
+            const slot = parseInt(document.getElementById('slotMin').value) || 20;
+            const startH = parseInt(document.getElementById('timeStart').value.split(':')[0]);
+            const endH = parseInt(document.getElementById('timeEnd').value.split(':')[0]);
+            const startM = parseInt(document.getElementById('timeStart').value.split(':')[1]);
+            const endM = parseInt(document.getElementById('timeEnd').value.split(':')[1]);
 
-            for (let min = startM; min <= endM; min += slot) {
-                let h = Math.floor(min / 60).toString().padStart(2, '0');
-                let m = (min % 60).toString().padStart(2, '0');
-                html += `<tr><td style="font-weight:700; background:#f8fafc; border-right: 1px solid #ddd;">${h}:${m}</td>`;
-                for (let d = 0; d < 7; d++) {
-                    const id = `s-${min}-${d}`;
-                    html += `<td>
-                        <select class="s-inp" id="${id}" data-day="${d}" onchange="toggleEs(this)">
-                            <option value="Eletivo">Eletivo</option><option value="Pronto Socorro">Pronto Socorro</option>
-                            <option value="Internado">Internado</option><option value="Manutenção">Manutenção</option>
-                            <option value="Respiros">Respiros</option><option value="Específico">Específico</option>
-                        </select>
-                        <input type="text" id="${id}-tx" class="especifico-input" placeholder="...">
-                    </td>`;
-                }
-                html += `</tr>`;
+            let html = `<table class="grade-table"><thead><tr><th>Hora</th><th>Op</th><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th></tr></thead><tbody>`;
+            
+            // Lógica para gerar slots baseada no intervalo de Início e Fim
+            let current = new Date();
+            current.setHours(startH, startM, 0);
+            let end = new Date();
+            end.setHours(endH, endM, 0);
+
+            while (current < end) {
+                const time = `${current.getHours().toString().padStart(2,'0')}:${current.getMinutes().toString().padStart(2,'0')}`;
+                html += `<tr id="row-${time}"><td>${time}</td><td><button onclick="unify('${time}')">Join</button></td>${genCols()}</tr>`;
+                current.setMinutes(current.getMinutes() + slot);
             }
-            html += `<tr class="total-row"><td>Total/Dia</td>`;
-            for (let d = 0; d < 7; d++) html += `<td id="total-day-${d}">0</td>`;
-            html += `</tr></tbody></table>`;
-            cont.innerHTML = html;
-            calcAg();
-        }
-
-        function toggleEs(sel) {
-            const tx = document.getElementById(sel.id + "-tx");
-            if(tx) tx.style.display = sel.value === 'Específico' ? 'block' : 'none';
-            calcAg();
-        }
-
-        function calcAg() {
-            let el = 0, ur = 0, ma = 0, re = 0;
-            let daySums = [0, 0, 0, 0, 0, 0, 0];
-            document.querySelectorAll('.s-inp').forEach(s => {
-                const day = parseInt(s.dataset.day);
-                if(s.value !== 'Manutenção' && s.value !== 'Respiros') daySums[day]++;
-                if(s.value === 'Eletivo' || s.value === 'Específico') el++;
-                else if(s.value === 'Pronto Socorro' || s.value === 'Internado') ur++;
-                else if(s.value === 'Manutenção') ma++;
-                else if(s.value === 'Respiros') re++;
-                
-                let bgColor = '#ffffff';
-                if(s.value === 'Eletivo') bgColor = '#dcfce7';
-                if(s.value === 'Manutenção') bgColor = '#fee2e2';
-                if(s.value === 'Respiros') bgColor = '#fff7ed';
-                if(s.value === 'Internado' || s.value === 'Pronto Socorro') bgColor = '#eff6ff';
-                s.parentElement.style.backgroundColor = bgColor;
-            });
-            daySums.forEach((sum, i) => { const cell = document.getElementById(`total-day-${i}`); if(cell) cell.innerText = sum; });
-            const f = 4.3;
-            document.getElementById('kpiEl').innerText = Math.round(el * f);
-            document.getElementById('kpiUr').innerText = Math.round(ur * f);
-            document.getElementById('kpiMa').innerText = Math.round(ma * f);
-            document.getElementById('kpiRe').innerText = Math.round(re * f);
-            document.getElementById('kpiTo').innerText = Math.round(document.querySelectorAll('.s-inp').length * f);
-        }
-
-        function saveAg() {
-            const key = `v28_${currentAgId}_${document.getElementById('selMes').value}`;
-            const data = { 
-                n: document.getElementById('renameAg').value, s: document.getElementById('slotMin').value,
-                hS: document.getElementById('timeStart').value, hE: document.getElementById('timeEnd').value, m: [] 
-            };
-            document.querySelectorAll('.s-inp').forEach(s => {
-                data.m.push({ id: s.id, v: s.value, t: document.getElementById(s.id + "-tx").value });
-            });
-            localStorage.setItem(key, JSON.stringify(data));
-            alert("Agenda Salva!");
-        }
-
-        function loadAg() {
-            const mesIdx = document.getElementById('selMes').value;
-            const disp = document.getElementById('displayPeriod');
-            if(disp) disp.innerText = `${months[mesIdx]} / 2026`;
             
-            const key = `v28_${currentAgId}_${mesIdx}`;
-            const s = localStorage.getItem(key);
-            if(s) {
-                const d = JSON.parse(s);
-                document.getElementById('renameAg').value = d.n || "";
-                document.getElementById('slotMin').value = d.s || 20;
-                document.getElementById('timeStart').value = d.hS || "06:00";
-                document.getElementById('timeEnd').value = d.hE || "23:00";
-                updateRoomName(d.n);
-                gerarGrade();
-                d.m.forEach(item => {
-                    const el = document.getElementById(item.id);
-                    if(el) {
-                        el.value = item.v;
-                        const tx = document.getElementById(item.id + "-tx");
-                        if(tx) { tx.value = item.t || ""; if(item.v === 'Específico') tx.style.display = 'block'; }
-                    }
-                });
-            } else { 
-                document.getElementById('renameAg').value = "";
-                updateRoomName("");
-                gerarGrade(); 
-            }
-            calcAg();
+            document.getElementById('gradeDiv').innerHTML = html + "</tbody></table>"; calcKPIs();
         }
-
-        async function exportPNG() {
-            const area = document.getElementById('printArea');
-            html2canvas(area, { scale: 2 }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `Agenda_${document.getElementById('displayRoomName').innerText}.png`;
-                link.href = canvas.toDataURL();
-                link.click();
-            });
+        function genCols() {
+            let c = ''; for(let d=0; d<7; d++) c+= `<td><select class="s-inp" onchange="hSel(this)"><option value="">-</option><option value="Eletivo">Eletivo</option><option value="PS">PS</option><option value="Internado">Internado</option><option value="Bloqueado">Bloqueado</option><option value="Respiro">Respiro</option><option value="Exame Especifico">Especifico</option></select><input type="text" class="d-notes"></td>`; return c;
         }
-
-        function filterCards(inp, gridId) {
-            const t = inp.value.toLowerCase();
-            document.querySelectorAll(`#${gridId} .card-unit`).forEach(c => c.style.display = c.innerText.toLowerCase().includes(t) ? 'flex' : 'none');
+        function hSel(s) { s.parentElement.style.backgroundColor = colors[s.value] || '#fff'; s.nextElementSibling.style.display = (s.value !== "" && s.value !== "Eletivo") ? 'block' : 'none'; calcKPIs(); }
+        function unify(id) { const r = document.getElementById(`row-${id}`); const n = r.nextElementSibling; if(n) { n.style.opacity = "0.3"; n.style.pointerEvents = "none"; } }
+        function calcKPIs() {
+            let el=0, ps=0, i=0, re=0;
+            document.querySelectorAll('.s-inp').forEach(s => { if(s.value==='Eletivo') el++; else if(s.value==='PS') ps++; else if(s.value==='Internado') i++; else if(s.value==='Respiro') re++; });
+            document.getElementById('k_el').innerText = Math.round(el*4.3); document.getElementById('k_ps').innerText = Math.round(ps*4.3);
+            document.getElementById('k_in').innerText = Math.round(i*4.3); document.getElementById('k_re').innerText = Math.round(re*4.3);
+            document.getElementById('k_to').innerText = Math.round((el+ps+i+re)*4.3);
         }
+        function updateRoomName(v) { document.getElementById('displayRoomName').innerText = v.toUpperCase() || `AGENDA 0${currentAgIndex}`; }
+        function saveAllAgendas() { saveCurrentAgSettings(); localStorage.setItem('vc_ag_final', JSON.stringify(agendasMaster)); alert("Salvo!"); }
 
-        function applyBulk() {
-            document.querySelectorAll('.s-inp').forEach(s => { s.value = 'Eletivo'; s.parentElement.style.backgroundColor = '#dcfce7'; });
-            calcAg();
-        }
-
-        window.onload = init;
+        window.onload = () => { gerarGrade(); };
     </script>
 </body>
 </html>
