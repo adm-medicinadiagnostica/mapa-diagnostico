@@ -65,8 +65,11 @@
         .grade-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; background: white; border-radius: 15px; overflow: hidden; }
         .grade-table th { background: var(--navy); color: white; padding: 12px; }
         .grade-table td { border: 1px solid #f1f5f9; padding: 5px; text-align: center; }
+        .grade-table tfoot td { background: #f8fafc; font-weight: 800; color: var(--navy); border-top: 2px solid var(--teal); padding: 10px 5px; }
         .s-inp { width: 100%; border: 1px solid #eee; font-size: 0.65rem; font-weight: 600; cursor: pointer; border-radius: 4px; }
         .d-notes { width: 100%; border: none; font-size: 0.6rem; margin-top: 3px; display: none; text-align: center; border-radius: 3px; background: rgba(255,255,255,0.5); }
+        
+        .slot-counter-footer { margin-top: 15px; padding: 10px; background: #f8fafc; border-top: 2px solid var(--teal); font-weight: 700; font-size: 0.8rem; color: var(--navy); text-align: right; border-radius: 0 0 15px 15px; display: none; }
 
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 45, 92, 0.4); backdrop-filter: blur(6px); }
         .modal-content { background: white; margin: 2% auto; width: 900px; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; }
@@ -175,10 +178,8 @@
                 <div class="ag-sidebar">
                     <div class="ag-tabs"><script>for(let i=1;i<=9;i++) document.write(`<button class="tab-btn ${i===1?'active':''}" id="tab-${i}" onclick="changeAgenda(${i},this)">Ag 0${i}</button>`);</script></div>
                     <div class="ag-field" style="margin-top:15px;"><label style="font-size:0.7rem; font-weight:800; color:var(--navy)">SALA</label><input type="text" id="renameAg" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" oninput="updateRoomName(this.value)"></div>
-                    
                     <div class="ag-field"><label>INÍCIO</label><input type="time" id="timeStart" value="06:00" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" onchange="gerarGrade()"></div>
                     <div class="ag-field"><label>FIM</label><input type="time" id="timeEnd" value="23:00" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" onchange="gerarGrade()"></div>
-                    
                     <div class="ag-field"><label>SLOT (Minutos)</label><input type="number" id="slotMin" value="20" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;" oninput="gerarGrade()"></div>
                     <button onclick="saveAllAgendas()" style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; margin-top:10px;">Gravar Mês</button>
                 </div>
@@ -190,7 +191,10 @@
                         <div class="kpi-pill" style="background:#6366f1;">Respiro: <span id="k_re">0</span></div>
                         <div class="kpi-pill" style="background:var(--navy);">Total: <span id="k_to">0</span></div>
                     </div>
-                    <div style="background:white; padding:25px; border-radius:20px; box-shadow:var(--shadow);"><h2 id="displayRoomName" style="text-align:center; color:var(--navy); margin-bottom:15px; text-transform:uppercase;">AGENDA 01</h2><div id="gradeDiv"></div></div>
+                    <div style="background:white; padding:25px; border-radius:20px; box-shadow:var(--shadow);">
+                        <h2 id="displayRoomName" style="text-align:center; color:var(--navy); margin-bottom:15px; text-transform:uppercase;">AGENDA 01</h2>
+                        <div id="gradeDiv"></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -321,6 +325,7 @@
                 slot: document.getElementById('slotMin').value 
             }; 
         }
+
         function gerarGrade() {
             const slot = parseInt(document.getElementById('slotMin').value) || 20;
             const startH = parseInt(document.getElementById('timeStart').value.split(':')[0]);
@@ -330,20 +335,31 @@
 
             let html = `<table class="grade-table"><thead><tr><th>Hora</th><th>Op</th><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th></tr></thead><tbody>`;
             
-            // Lógica para gerar slots baseada no intervalo de Início e Fim
             let current = new Date();
             current.setHours(startH, startM, 0);
             let end = new Date();
             end.setHours(endH, endM, 0);
 
+            let totalSlots = 0; 
+
             while (current < end) {
                 const time = `${current.getHours().toString().padStart(2,'0')}:${current.getMinutes().toString().padStart(2,'0')}`;
                 html += `<tr id="row-${time}"><td>${time}</td><td><button onclick="unify('${time}')">Join</button></td>${genCols()}</tr>`;
                 current.setMinutes(current.getMinutes() + slot);
+                totalSlots++; 
             }
             
-            document.getElementById('gradeDiv').innerHTML = html + "</tbody></table>"; calcKPIs();
+            // Adição do rodapé com o cálculo por dia
+            html += `</tbody><tfoot><tr><td colspan="2">SLOTS DIA:</td>`;
+            for(let i=0; i<7; i++) {
+                html += `<td>${totalSlots}</td>`;
+            }
+            html += `</tr></tfoot></table>`;
+            
+            document.getElementById('gradeDiv').innerHTML = html;
+            calcKPIs();
         }
+
         function genCols() {
             let c = ''; for(let d=0; d<7; d++) c+= `<td><select class="s-inp" onchange="hSel(this)"><option value="">-</option><option value="Eletivo">Eletivo</option><option value="PS">PS</option><option value="Internado">Internado</option><option value="Bloqueado">Bloqueado</option><option value="Respiro">Respiro</option><option value="Exame Especifico">Especifico</option></select><input type="text" class="d-notes"></td>`; return c;
         }
